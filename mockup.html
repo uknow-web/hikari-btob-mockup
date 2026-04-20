@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIKARI BtoB STORE ｜ 業務用什器・棚・ワゴン（モックアップ）</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+    color: #1a1a1a;
+    background: #fff;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  /* ==== MOCK BANNER ==== */
+  .mock-banner {
+    background: #fff6d6;
+    color: #6b4f00;
+    text-align: center;
+    padding: 6px;
+    font-size: 12px;
+    border-bottom: 1px solid #f0e0a0;
+  }
+
+  /* ==== TOP BAR ==== */
+  .topbar {
+    background: #0e2a4a;
+    color: #cfd9e6;
+    font-size: 12px;
+  }
+  .topbar-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 8px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .topbar a { margin-left: 16px; }
+  .topbar a:hover { color: #fff; }
+  .login-state {
+    display: inline-flex; gap: 8px; align-items: center;
+  }
+  .state-pill {
+    background: #17406e; padding: 2px 10px; border-radius: 12px; font-size: 11px;
+  }
+  .state-pill.member { background: #206848; }
+
+  /* ==== HEADER ==== */
+  header.main {
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky; top: 0; z-index: 100;
+    background: #fff;
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 18px 20px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; color: #888; font-weight: 400; letter-spacing: 0.15em;
+  }
+  .logo img { height: 38px; width: auto; display: block; }
+  .logo small { display: block; font-size: 10px; color: #888; font-weight: 400; letter-spacing: 0.15em; }
+  .search {
+    flex: 1; display: flex; max-width: 520px;
+    border: 1px solid #ccc; border-radius: 2px; overflow: hidden;
+  }
+  .search input {
+    flex: 1; border: none; padding: 10px 14px; font-size: 13px; outline: none;
+  }
+  .search button {
+    background: #0e2a4a; color: #fff; padding: 0 18px; font-size: 12px;
+  }
+  .header-actions {
+    display: flex; gap: 14px; font-size: 12px;
+  }
+  .header-actions a {
+    text-align: center; padding: 4px 10px; border-radius: 2px;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .header-actions .badge {
+    background: #c83c3c; color: #fff; border-radius: 10px; padding: 1px 7px;
+    font-size: 10px; margin-left: 4px;
+  }
+  .icon { font-size: 18px; }
+
+  /* ==== NAV ==== */
+  nav.gnav {
+    background: #f6f7f9;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex;
+  }
+  .nav-inner a {
+    padding: 12px 18px; font-size: 13px;
+    border-right: 1px solid #e5e5e5;
+    transition: background .15s;
+  }
+  .nav-inner a:first-child { border-left: 1px solid #e5e5e5; }
+  .nav-inner a:hover { background: #fff; color: #0e2a4a; }
+
+  /* ==== HERO ==== */
+  .hero {
+    background:
+      linear-gradient(135deg, rgba(14,42,74,0.88) 0%, rgba(26,70,120,0.80) 100%),
+      url('images/factory-hero.jpg') center/cover no-repeat;
+    color: #fff;
+    padding: 64px 20px;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center;
+  }
+  .hero h1 { font-size: 30px; line-height: 1.4; margin-bottom: 16px; font-weight: 700; }
+  .hero p { font-size: 14px; color: #d7e0ea; margin-bottom: 24px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 12px 22px; font-size: 13px;
+    border-radius: 2px; font-weight: 600; letter-spacing: 0.05em;
+    transition: all .15s;
+  }
+  .btn-primary { background: #fff; color: #0e2a4a; }
+  .btn-primary:hover { background: #e8eef5; }
+  .btn-outline { border: 1px solid #fff; color: #fff; }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+  .btn-accent { background: #c9731c; color: #fff; }
+  .btn-accent:hover { background: #b26216; }
+  .btn-sub { background: #f2f3f5; color: #333; border: 1px solid #d4d6db; }
+  .btn-sub:hover { background: #e6e8ec; }
+  .hero-badges {
+    background: rgba(255,255,255,0.08); border-radius: 4px; padding: 20px;
+    display: grid; gap: 10px;
+  }
+  .hero-badges div { display: flex; gap: 10px; align-items: center; font-size: 13px; }
+  .hero-badges .tick { color: #7fd1a9; font-weight: 700; }
+
+  /* ==== SECTION ==== */
+  section { padding: 48px 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .sec-title {
+    font-size: 20px; font-weight: 700; margin-bottom: 6px; color: #0e2a4a;
+    border-left: 4px solid #c9731c; padding-left: 12px;
+  }
+  .sec-sub { font-size: 12px; color: #777; margin-bottom: 24px; padding-left: 16px; }
+
+  /* ==== CATEGORIES ==== */
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .cat-card {
+    border: 1px solid #e5e5e5; padding: 24px 16px; text-align: center;
+    transition: all .15s; cursor: pointer; background: #fff;
+  }
+  .cat-card:hover { border-color: #0e2a4a; background: #f6f7f9; }
+  .cat-icon { font-size: 36px; margin-bottom: 8px; }
+  .cat-card h3 { font-size: 14px; margin-bottom: 4px; }
+  .cat-card p { font-size: 11px; color: #888; }
+
+  /* ==== USE CASE ==== */
+  .usecase-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+  }
+  .uc {
+    background: #f6f7f9; border: 1px solid #e5e5e5;
+    padding: 14px 10px; text-align: center; font-size: 12px;
+    cursor: pointer; transition: all .15s;
+  }
+  .uc:hover { background: #0e2a4a; color: #fff; border-color: #0e2a4a; }
+
+  /* ==== PRODUCT LIST ==== */
+  .list-wrap { display: grid; grid-template-columns: 220px 1fr; gap: 24px; }
+  .filter-box {
+    border: 1px solid #e5e5e5; padding: 16px; font-size: 12px;
+    height: fit-content;
+  }
+  .filter-box h4 {
+    font-size: 13px; margin-bottom: 10px; padding-bottom: 6px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .filter-box ul { list-style: none; margin-bottom: 14px; }
+  .filter-box li { padding: 4px 0; }
+  .filter-box label { cursor: pointer; display: flex; gap: 6px; align-items: center; }
+  .filter-box input[type="checkbox"] { cursor: pointer; }
+  .filter-count { color: #888; font-size: 11px; }
+
+  .list-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e5e5e5;
+  }
+  .list-head .count { font-size: 12px; color: #666; }
+  .list-head select { font-size: 12px; padding: 4px 8px; border: 1px solid #ccc; }
+
+  .prod-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .prod-card {
+    border: 1px solid #e5e5e5; background: #fff; transition: all .15s;
+    display: flex; flex-direction: column; cursor: pointer;
+  }
+  .prod-card:hover { border-color: #0e2a4a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .prod-img {
+    background: #f2f3f5; aspect-ratio: 4/3; display: flex;
+    align-items: center; justify-content: center; font-size: 56px;
+    position: relative; color: #6b7a8c; overflow: hidden;
+  }
+  .prod-img img {
+    width: 100%; height: 100%; object-fit: contain; background: #fff;
+  }
+  .prod-img .ph { font-size: 56px; color: #b5bcc7; }
+  .prod-badges {
+    position: absolute; top: 8px; left: 8px; display: flex; gap: 4px; flex-wrap: wrap;
+  }
+  .badge-tag {
+    background: #0e2a4a; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 2px;
+  }
+  .badge-tag.spec { background: #c9731c; }
+  .badge-tag.stock { background: #206848; }
+  .badge-tag.quote { background: #777; }
+  .prod-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+  .prod-sku { font-size: 11px; color: #888; margin-bottom: 4px; font-family: 'Courier New', monospace; }
+  .prod-name { font-size: 13px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; min-height: 36px; }
+  .prod-spec { font-size: 11px; color: #666; margin-bottom: 10px; min-height: 30px; }
+  .prod-price { font-size: 16px; font-weight: 700; color: #0e2a4a; margin-bottom: 8px; }
+  .prod-price .label { font-size: 10px; color: #888; font-weight: 400; display: block; }
+  .prod-price.quote-only { color: #777; font-size: 13px; }
+  .member-only {
+    background: #fff4e5; color: #8a4a00; font-size: 10px;
+    padding: 4px 8px; margin-bottom: 8px; border-radius: 2px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .prod-actions { display: flex; gap: 6px; margin-top: auto; }
+  .prod-actions button {
+    flex: 1; padding: 7px; font-size: 11px; border: 1px solid #ccc;
+    background: #fff; transition: all .15s;
+  }
+  .prod-actions button:hover { background: #f2f3f5; }
+  .prod-actions .primary {
+    background: #0e2a4a; color: #fff; border-color: #0e2a4a;
+  }
+  .prod-actions .primary:hover { background: #17406e; }
+
+  /* ==== MODAL (PRODUCT DETAIL) ==== */
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    display: none; align-items: center; justify-content: center; z-index: 500;
+    padding: 20px;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: #fff; max-width: 900px; width: 100%; max-height: 90vh;
+    overflow-y: auto; border-radius: 2px;
+  }
+  .modal-head {
+    padding: 16px 24px; border-bottom: 1px solid #e5e5e5;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; background: #fff; z-index: 1;
+  }
+  .modal-close {
+    font-size: 22px; color: #666; padding: 4px 10px;
+  }
+  .modal-body { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .modal-img {
+    background: #f2f3f5; aspect-ratio: 1/1; display: flex;
+    align-items: center; justify-content: center; font-size: 120px; color: #6b7a8c;
+    overflow: hidden;
+  }
+  .modal-img img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .modal-info h2 { font-size: 20px; margin-bottom: 6px; }
+  .modal-info .sku { font-family: 'Courier New', monospace; color: #888; margin-bottom: 14px; }
+  .spec-table {
+    width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px;
+  }
+  .spec-table th, .spec-table td {
+    border: 1px solid #e5e5e5; padding: 8px 10px; text-align: left;
+  }
+  .spec-table th { background: #f6f7f9; width: 32%; font-weight: 600; }
+  .price-box {
+    background: #f6f7f9; border: 1px solid #e5e5e5; padding: 16px; margin: 16px 0;
+  }
+  .price-box .price-main { font-size: 22px; font-weight: 700; color: #0e2a4a; }
+  .price-box .price-main .label { font-size: 11px; color: #888; font-weight: 400; margin-right: 6px; }
+  .price-box .list-price { font-size: 12px; color: #888; text-decoration: line-through; margin-top: 4px; }
+  .price-box .tax { font-size: 11px; color: #666; margin-top: 4px; }
+  .qty-row { display: flex; gap: 10px; align-items: center; margin: 12px 0; font-size: 13px; }
+  .qty-row input { width: 64px; padding: 6px; border: 1px solid #ccc; text-align: center; }
+  .action-stack { display: grid; gap: 8px; }
+  .big-btn {
+    padding: 14px; font-size: 14px; font-weight: 600; border-radius: 2px;
+  }
+  .big-btn.buy { background: #c9731c; color: #fff; }
+  .big-btn.buy:hover { background: #b26216; }
+  .big-btn.quote { background: #0e2a4a; color: #fff; }
+  .big-btn.quote:hover { background: #17406e; }
+  .big-btn.contact { background: #fff; border: 1px solid #0e2a4a; color: #0e2a4a; }
+  .big-btn.contact:hover { background: #f2f3f5; }
+
+  /* ==== FOOTER ==== */
+  footer {
+    background: #0e2a4a; color: #cfd9e6; padding: 40px 20px 20px;
+    font-size: 12px;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px;
+  }
+  .footer-inner h5 { font-size: 13px; color: #fff; margin-bottom: 10px; }
+  .footer-inner ul { list-style: none; }
+  .footer-inner li { padding: 3px 0; }
+  .footer-inner li a:hover { color: #fff; }
+  .copy {
+    max-width: 1200px; margin: 24px auto 0; padding-top: 16px;
+    border-top: 1px solid #17406e; text-align: center; font-size: 11px;
+  }
+
+  /* ==== TOAST ==== */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: #206848; color: #fff; padding: 14px 22px;
+    border-radius: 4px; font-size: 13px; z-index: 1000;
+    transform: translateY(80px); opacity: 0; transition: all .25s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ==== LOGIN MODAL ==== */
+  .login-modal { max-width: 440px; }
+  .login-modal .modal-body { display: block; padding: 28px; }
+  .login-modal h2 { font-size: 18px; margin-bottom: 14px; }
+  .login-modal p { font-size: 12px; color: #666; margin-bottom: 18px; }
+  .login-modal input {
+    width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; font-size: 13px;
+  }
+  .login-modal .hint {
+    background: #fff6d6; color: #6b4f00; padding: 10px; font-size: 11px; margin-top: 12px;
+  }
+
+  /* ==== RESPONSIVE ==== */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .usecase-grid { grid-template-columns: repeat(2, 1fr); }
+    .list-wrap { grid-template-columns: 1fr; }
+    .prod-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-body { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .header-inner { flex-wrap: wrap; }
+    .search { order: 3; width: 100%; max-width: none; }
+  }
+  @media (max-width: 560px) {
+    .prod-grid { grid-template-columns: 1fr; }
+    .cat-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mock-banner">
+  ※ これは提案用モックアップです（makeshop標準機能で実現可能なUI構成をHTMLで再現しています）
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>法人のお客様向け業務用什器EC ｜ 営業時間 平日9:00-17:30</div>
+    <div class="login-state">
+      <span id="stateLabel" class="state-pill">未ログイン（ゲスト）</span>
+      <a href="#" onclick="toggleLogin(); return false;" id="loginLink">▶ 法人会員ログイン</a>
+      <a href="#">新規会員登録（無料）</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="main">
+  <div class="header-inner">
+    <div class="logo">
+      <img src="images/logo-hikari.png" alt="HIKARI">
+      <small>BtoB STORE</small>
+    </div>
+    <div class="search">
+      <input type="text" placeholder="型番・商品名・用途で検索（例：SS-1200 / ステンレスワゴン / 食品工場）">
+      <button>検索</button>
+    </div>
+    <div class="header-actions">
+      <a href="#" onclick="openCart('quote'); return false;">
+        <span class="icon">📋</span>
+        見積カート<span class="badge" id="quoteCount">0</span>
+      </a>
+      <a href="#" onclick="openCart('buy'); return false;">
+        <span class="icon">🛒</span>
+        カート<span class="badge" id="cartCount">0</span>
+      </a>
+      <a href="#">
+        <span class="icon">👤</span>
+        マイページ
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- GNAV -->
+<nav class="gnav">
+  <div class="nav-inner">
+    <a href="#cat">商品カテゴリ</a>
+    <a href="#usecase">用途から探す</a>
+    <a href="#list">全商品</a>
+    <a href="#">特注・オーダー相談</a>
+    <a href="#">お見積り依頼</a>
+    <a href="#">カタログ請求</a>
+    <a href="#">ご利用ガイド</a>
+    <a href="#">会社情報</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>現場で使う什器を、<br>型番から最短で。相談もすぐ。</h1>
+      <p>スチール棚・ワゴン・ステンレス什器を、法人向けに直販。<br>規格品は即時発注、特注はお見積りで対応します。</p>
+      <div class="hero-cta">
+        <a href="#list" class="btn btn-primary">商品を探す</a>
+        <a href="#" class="btn btn-accent">お見積り依頼</a>
+        <a href="#" class="btn btn-outline">カタログ請求</a>
+      </div>
+    </div>
+    <div class="hero-badges">
+      <div><span class="tick">✓</span> 法人会員は会員価格でご購入いただけます</div>
+      <div><span class="tick">✓</span> 請求書払い（掛売）対応</div>
+      <div><span class="tick">✓</span> 複数商品まとめて一括見積が可能</div>
+      <div><span class="tick">✓</span> 再注文はマイページからワンクリック</div>
+      <div><span class="tick">✓</span> 特注・サイズオーダーのご相談OK</div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="cat">
+  <div class="container">
+    <h2 class="sec-title">商品カテゴリ</h2>
+    <p class="sec-sub">取扱カテゴリから探す（初期公開：10型番 / 順次拡大予定）</p>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterCategory('shelf')">
+        <div class="cat-icon">🗄️</div>
+        <h3>スチール棚</h3>
+        <p>軽量 / 中量 / 重量</p>
+      </div>
+      <div class="cat-card" onclick="filterCategory('wagon')">
+        <div class="cat-icon">🛒</div>
+        <h3>ワゴン</h3>
+        <p>汎用 / 作業用 / 静音</p>
+      </div>
+      <div class="cat-card" onclick="filterCategory('sswagon')">
+        <div class="cat-icon">⚙️</div>
+        <h3>ステンレスワゴン</h3>
+        <p>衛生 / 医療 / 厨房</p>
+      </div>
+      <div class="cat-card" onclick="filterCategory('ssfix')">
+        <div class="cat-icon">🔧</div>
+        <h3>ステンレス什器</h3>
+        <p>作業台 / シンク / 棚</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USECASE -->
+<section id="usecase" style="background:#f6f7f9;">
+  <div class="container">
+    <h2 class="sec-title">用途から探す</h2>
+    <p class="sec-sub">現場別のおすすめをご案内します</p>
+    <div class="usecase-grid">
+      <div class="uc">🏭 食品工場・セントラルキッチン</div>
+      <div class="uc">🏥 医療・クリニック・介護</div>
+      <div class="uc">📦 物流・倉庫・部品管理</div>
+      <div class="uc">🍴 飲食・ホテル・バックヤード</div>
+      <div class="uc">🧪 研究機関・実験室</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT LIST -->
+<section id="list">
+  <div class="container">
+    <h2 class="sec-title">取扱商品（初期公開10型番）</h2>
+    <p class="sec-sub">規格品は即時注文、特注は「要見積」からお気軽にご相談ください</p>
+
+    <div class="list-wrap">
+      <aside class="filter-box">
+        <h4>カテゴリで絞り込み</h4>
+        <ul>
+          <li><label><input type="checkbox" class="f-cat" value="shelf" onchange="applyFilter()"> スチール棚 <span class="filter-count">(3)</span></label></li>
+          <li><label><input type="checkbox" class="f-cat" value="wagon" onchange="applyFilter()"> ワゴン <span class="filter-count">(2)</span></label></li>
+          <li><label><input type="checkbox" class="f-cat" value="sswagon" onchange="applyFilter()"> ステンレスワゴン <span class="filter-count">(2)</span></label></li>
+          <li><label><input type="checkbox" class="f-cat" value="ssfix" onchange="applyFilter()"> ステンレス什器 <span class="filter-count">(3)</span></label></li>
+        </ul>
+        <h4>素材</h4>
+        <ul>
+          <li><label><input type="checkbox" class="f-mat" value="steel" onchange="applyFilter()"> スチール</label></li>
+          <li><label><input type="checkbox" class="f-mat" value="ss" onchange="applyFilter()"> ステンレス（SUS430/304）</label></li>
+        </ul>
+        <h4>販売区分</h4>
+        <ul>
+          <li><label><input type="checkbox" class="f-kind" value="stock" onchange="applyFilter()"> 在庫品（即日出荷）</label></li>
+          <li><label><input type="checkbox" class="f-kind" value="order" onchange="applyFilter()"> 受注生産</label></li>
+          <li><label><input type="checkbox" class="f-kind" value="quote" onchange="applyFilter()"> 要見積（特注可）</label></li>
+        </ul>
+        <button class="btn btn-sub" style="width:100%;margin-top:6px;font-size:11px;padding:8px;" onclick="resetFilter()">絞り込みをリセット</button>
+      </aside>
+
+      <div>
+        <div class="list-head">
+          <div class="count"><span id="listCount">10</span>件表示中 / 全10型番</div>
+          <select>
+            <option>おすすめ順</option>
+            <option>価格が安い順</option>
+            <option>価格が高い順</option>
+            <option>新着順</option>
+          </select>
+        </div>
+        <div class="prod-grid" id="prodGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="logo" style="margin-bottom:10px;"><img src="images/logo-hikari.png" alt="HIKARI" style="height:34px;filter:brightness(0) invert(1);"><small style="color:#8ea4bd;">BtoB STORE</small></div>
+      <p>日本の製造業ブランドが直接お届けする、業務用什器のBtoB ECサイトです。規格品・特注品のいずれもお気軽にご相談ください。</p>
+    </div>
+    <div>
+      <h5>ご利用について</h5>
+      <ul>
+        <li><a href="#">ご利用ガイド</a></li>
+        <li><a href="#">送料・配送</a></li>
+        <li><a href="#">お支払い方法</a></li>
+        <li><a href="#">返品・交換</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>サポート</h5>
+      <ul>
+        <li><a href="#">お問い合わせ</a></li>
+        <li><a href="#">お見積り依頼</a></li>
+        <li><a href="#">特注・オーダー相談</a></li>
+        <li><a href="#">カタログ請求</a></li>
+        <li><a href="#">よくある質問</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>会社情報</h5>
+      <ul>
+        <li><a href="#">会社概要</a></li>
+        <li><a href="#">工場・製造背景</a></li>
+        <li><a href="#">品質・保証</a></li>
+        <li><a href="#">プライバシーポリシー</a></li>
+        <li><a href="#">特定商取引法</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">© HIKARI MFG. 本サイトはmakeshopにて構築された提案モックです。</div>
+</footer>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-bg" id="prodModal" onclick="if(event.target===this) closeModal('prodModal')">
+  <div class="modal" id="prodModalInner"></div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-bg" id="loginModal" onclick="if(event.target===this) closeModal('loginModal')">
+  <div class="modal login-modal">
+    <div class="modal-head">
+      <h2 style="font-size:16px;">法人会員ログイン（デモ）</h2>
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>モックのため、ログイン情報入力は不要です。下のボタンでログイン状態を切り替えられます。ログイン後は会員価格が表示されます。</p>
+      <input type="text" placeholder="ログインID（例：hikari_demo）" value="hikari_demo">
+      <input type="password" placeholder="パスワード" value="demo1234">
+      <button class="big-btn quote" style="width:100%;" onclick="doLogin()">ログインする（デモ）</button>
+      <div class="hint">※ 実装時はmakeshopの会員機能・会員ランク機能で会員価格を制御します。</div>
+    </div>
+  </div>
+</div>
+
+<!-- CART MODAL -->
+<div class="modal-bg" id="cartModal" onclick="if(event.target===this) closeModal('cartModal')">
+  <div class="modal" id="cartModalInner" style="max-width:640px;"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ==== STATE ====
+  let isMember = false;
+  const quoteCart = [];
+  const buyCart = [];
+
+  // ==== 10 SKUs ====
+  const products = [
+    {
+      sku: 'SS-900-L',
+      name: '軽量スチール棚 5段 W900×D450×H1800',
+      cat: 'shelf', mat: 'steel', kind: 'stock',
+      icon: '🗄️', img: 'images/steel-shelf.jpg',
+      badges: [{type:'stock', text:'在庫品'}],
+      listPrice: 18800,
+      memberPrice: 15900,
+      buyable: true,
+      spec: '耐荷重 120kg/段 ・ 天地5枚 ・ 組立式',
+      specs: {
+        '型番': 'SS-900-L','外寸': 'W900×D450×H1800mm','段数': '5段（天地含む）',
+        '耐荷重': '120kg/段（均等荷重）','素材/仕上': 'スチール・メラミン焼付塗装',
+        '色': 'アイボリー','販売区分': '在庫品（即日出荷）','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'SS-1200-M',
+      name: '中量スチール棚 5段 W1200×D600×H1800',
+      cat: 'shelf', mat: 'steel', kind: 'stock',
+      icon: '🗄️', img: 'images/steel-shelf.jpg',
+      badges: [{type:'stock', text:'在庫品'}, {type:'tag', text:'人気'}],
+      listPrice: 32800,
+      memberPrice: 27800,
+      buyable: true,
+      spec: '耐荷重 300kg/段 ・ 現場定番',
+      specs: {
+        '型番': 'SS-1200-M','外寸': 'W1200×D600×H1800mm','段数': '5段',
+        '耐荷重': '300kg/段（均等荷重）','素材/仕上': 'スチール・メラミン焼付塗装',
+        '色': 'アイボリー / グレー選択可','販売区分': '在庫品（即日出荷）','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'SS-1500-H',
+      name: '重量スチール棚 4段 W1500×D750×H2100',
+      cat: 'shelf', mat: 'steel', kind: 'order',
+      icon: '🗄️', img: 'images/steel-shelf.jpg',
+      badges: [{type:'tag', text:'受注生産'}],
+      listPrice: 68000,
+      memberPrice: 57800,
+      buyable: true,
+      spec: '耐荷重 500kg/段 ・ 倉庫向け',
+      specs: {
+        '型番': 'SS-1500-H','外寸': 'W1500×D750×H2100mm','段数': '4段',
+        '耐荷重': '500kg/段（均等荷重）','素材/仕上': 'スチール・メラミン焼付塗装',
+        '色': 'グレー','販売区分': '受注生産（納期10〜14営業日）','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'WG-600-3',
+      name: '汎用ワゴン 3段 W600×D450×H830',
+      cat: 'wagon', mat: 'steel', kind: 'stock',
+      icon: '🛒', img: 'images/wagon-lineup.jpg',
+      badges: [{type:'stock', text:'在庫品'}],
+      listPrice: 14800,
+      memberPrice: 12800,
+      buyable: true,
+      spec: '耐荷重 75kg ・ キャスター付き',
+      specs: {
+        '型番': 'WG-600-3','外寸': 'W600×D450×H830mm','段数': '3段',
+        '耐荷重': '75kg（均等）','素材/仕上': 'スチール・粉体塗装',
+        'キャスター': 'φ75mm 4輪（うち2輪ストッパー付）','販売区分': '在庫品','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'WG-750-S',
+      name: '静音キャスター作業ワゴン 3段 W750×D450',
+      cat: 'wagon', mat: 'steel', kind: 'stock',
+      icon: '🛒', img: 'images/wagon-lineup.jpg',
+      badges: [{type:'spec', text:'静音'}, {type:'stock', text:'在庫品'}],
+      listPrice: 22800,
+      memberPrice: 19800,
+      buyable: true,
+      spec: '静音ウレタン車輪 ・ 夜間作業対応',
+      specs: {
+        '型番': 'WG-750-S','外寸': 'W750×D450×H830mm','段数': '3段',
+        '耐荷重': '100kg（均等）','キャスター': 'ウレタン静音タイプ φ100mm',
+        '素材/仕上': 'スチール・粉体塗装','販売区分': '在庫品','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'SW-600-MED',
+      name: 'ステンレス医療用ワゴン 2段 W600×D450',
+      cat: 'sswagon', mat: 'ss', kind: 'stock',
+      icon: '⚙️', img: 'images/ss-wagon.jpg',
+      badges: [{type:'spec', text:'SUS304'}, {type:'stock', text:'在庫品'}],
+      listPrice: 38000,
+      memberPrice: 32800,
+      buyable: true,
+      spec: 'SUS304 ・ 衛生区画／医療現場向け',
+      specs: {
+        '型番': 'SW-600-MED','外寸': 'W600×D450×H800mm','段数': '2段',
+        '耐荷重': '60kg（均等）','素材': 'SUS304 #400仕上',
+        'キャスター': '導電性キャスター対応可','販売区分': '在庫品','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'SW-750-KIT',
+      name: 'ステンレス厨房ワゴン 3段 W750×D450',
+      cat: 'sswagon', mat: 'ss', kind: 'stock',
+      icon: '⚙️', img: 'images/ss-wagon.jpg',
+      badges: [{type:'spec', text:'SUS430'}, {type:'stock', text:'在庫品'}],
+      listPrice: 34800,
+      memberPrice: 29800,
+      buyable: true,
+      spec: 'SUS430 ・ 厨房・セントラルキッチン向け',
+      specs: {
+        '型番': 'SW-750-KIT','外寸': 'W750×D450×H830mm','段数': '3段',
+        '耐荷重': '80kg（均等）','素材': 'SUS430 #400仕上',
+        '販売区分': '在庫品','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'SF-WT-1200',
+      name: 'ステンレス作業台 W1200×D600×H800',
+      cat: 'ssfix', mat: 'ss', kind: 'order',
+      icon: '🔧',
+      badges: [{type:'spec', text:'SUS430'}, {type:'tag', text:'受注生産'}],
+      listPrice: 48000,
+      memberPrice: 39800,
+      buyable: true,
+      spec: '平天板 ・ 調整脚付き',
+      specs: {
+        '型番': 'SF-WT-1200','外寸': 'W1200×D600×H800mm',
+        '耐荷重': '150kg（均等）','素材': 'SUS430 バイブレーション仕上',
+        '脚': 'アジャスター付（±20mm）','販売区分': '受注生産（納期7〜10営業日）','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'SF-SK-900',
+      name: 'ステンレス一槽シンク W900×D600×H800',
+      cat: 'ssfix', mat: 'ss', kind: 'order',
+      icon: '🔧',
+      badges: [{type:'spec', text:'SUS430'}, {type:'tag', text:'受注生産'}],
+      listPrice: 58000,
+      memberPrice: 49800,
+      buyable: true,
+      spec: '槽内寸W700×D450×H220 ・ バックガード付',
+      specs: {
+        '型番': 'SF-SK-900','外寸': 'W900×D600×H800mm（BG150含まず）',
+        '槽内寸': 'W700×D450×H220mm','素材': 'SUS430 #400仕上',
+        '排水': '呼び径40 ゴム栓式','販売区分': '受注生産（納期10〜14営業日）','最小ロット': '1台より'
+      }
+    },
+    {
+      sku: 'SF-CUSTOM',
+      name: 'ステンレス特注什器（サイズ・用途オーダー）',
+      cat: 'ssfix', mat: 'ss', kind: 'quote',
+      icon: '📐',
+      badges: [{type:'quote', text:'要見積'}, {type:'spec', text:'特注可'}],
+      listPrice: null,
+      memberPrice: null,
+      buyable: false,
+      spec: '現場サイズ・用途に合わせてお見積りいたします',
+      specs: {
+        '型番': 'SF-CUSTOM（参考）','対応サイズ': 'W300〜W2400 / D300〜D900 / H600〜H1800',
+        '素材': 'SUS304 / SUS430 選択可','対応形状': '作業台・棚・シンク・什器一体型 等',
+        '納期': 'お見積り時にご案内（目安 14〜28営業日）','販売区分': '特注（要見積）','最小ロット': '1台より'
+      }
+    }
+  ];
+
+  // ==== RENDER LIST ====
+  function renderProducts(list) {
+    const grid = document.getElementById('prodGrid');
+    if (list.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:#888;border:1px solid #e5e5e5;">該当商品がありません。絞り込み条件を変更してください。</div>';
+    } else {
+      grid.innerHTML = list.map(p => card(p)).join('');
+    }
+    document.getElementById('listCount').textContent = list.length;
+  }
+
+  function card(p) {
+    const priceBlock = p.buyable
+      ? (isMember
+          ? `<div class="prod-price">¥${p.memberPrice.toLocaleString()} <span class="label">会員価格（税抜）</span></div>`
+          : `<div class="member-only">🔒 会員価格はログイン後に表示</div><div class="prod-price" style="font-size:13px;color:#666;">参考価格 ¥${p.listPrice.toLocaleString()}（税抜）</div>`)
+      : `<div class="prod-price quote-only">お見積りにてご案内</div>`;
+
+    const actions = p.buyable
+      ? `<button class="primary" onclick="event.stopPropagation(); addToBuy('${p.sku}')">カートに入れる</button>
+         <button onclick="event.stopPropagation(); addToQuote('${p.sku}')">見積に追加</button>`
+      : `<button class="primary" onclick="event.stopPropagation(); addToQuote('${p.sku}')">見積に追加</button>
+         <button onclick="event.stopPropagation(); openDetail('${p.sku}')">詳細を見る</button>`;
+
+    const imgTag = p.img
+      ? `<img src="${p.img}" alt="${p.name}">`
+      : `<span class="ph">${p.icon}</span>`;
+    return `
+      <div class="prod-card" onclick="openDetail('${p.sku}')">
+        <div class="prod-img">
+          ${imgTag}
+          <div class="prod-badges">
+            ${p.badges.map(b=>`<span class="badge-tag ${b.type}">${b.text}</span>`).join('')}
+          </div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-sku">${p.sku}</div>
+          <div class="prod-name">${p.name}</div>
+          <div class="prod-spec">${p.spec}</div>
+          ${priceBlock}
+          <div class="prod-actions">${actions}</div>
+        </div>
+      </div>`;
+  }
+
+  // ==== FILTER ====
+  function applyFilter() {
+    const cats = [...document.querySelectorAll('.f-cat:checked')].map(x=>x.value);
+    const mats = [...document.querySelectorAll('.f-mat:checked')].map(x=>x.value);
+    const kinds = [...document.querySelectorAll('.f-kind:checked')].map(x=>x.value);
+    let list = products.slice();
+    if (cats.length) list = list.filter(p => cats.includes(p.cat));
+    if (mats.length) list = list.filter(p => mats.includes(p.mat));
+    if (kinds.length) list = list.filter(p => kinds.includes(p.kind));
+    renderProducts(list);
+  }
+  function filterCategory(cat) {
+    document.querySelectorAll('.f-cat').forEach(x=>{ x.checked = (x.value===cat); });
+    document.querySelectorAll('.f-mat').forEach(x=>x.checked=false);
+    document.querySelectorAll('.f-kind').forEach(x=>x.checked=false);
+    applyFilter();
+    document.getElementById('list').scrollIntoView({behavior:'smooth'});
+  }
+  function resetFilter() {
+    document.querySelectorAll('.filter-box input[type=checkbox]').forEach(x=>x.checked=false);
+    applyFilter();
+  }
+
+  // ==== DETAIL MODAL ====
+  function openDetail(sku) {
+    const p = products.find(x => x.sku === sku);
+    if (!p) return;
+    const priceBox = p.buyable
+      ? (isMember
+          ? `<div class="price-box">
+               <div class="price-main"><span class="label">会員価格</span>¥${p.memberPrice.toLocaleString()}</div>
+               <div class="list-price">定価 ¥${p.listPrice.toLocaleString()}</div>
+               <div class="tax">※ 税抜価格です</div>
+             </div>`
+          : `<div class="price-box">
+               <div class="member-only" style="margin:0 0 10px;">🔒 会員価格はログイン後に表示されます</div>
+               <div class="price-main" style="font-size:16px;color:#666;"><span class="label">参考価格</span>¥${p.listPrice.toLocaleString()}</div>
+               <div class="tax">※ 税抜。法人会員ログインで会員価格を表示します。</div>
+             </div>`)
+      : `<div class="price-box">
+           <div class="price-main" style="font-size:16px;">お見積りにてご案内いたします</div>
+           <div class="tax">※ 特注品のため、ご希望のサイズ・数量・用途をフォームよりお知らせください。</div>
+         </div>`;
+
+    const actions = p.buyable
+      ? `<button class="big-btn buy" onclick="addToBuy('${p.sku}')">カートに入れる</button>
+         <button class="big-btn quote" onclick="addToQuote('${p.sku}')">見積カートに追加</button>
+         <button class="big-btn contact">この商品について問い合わせる</button>`
+      : `<button class="big-btn quote" onclick="addToQuote('${p.sku}')">見積カートに追加</button>
+         <button class="big-btn contact">特注相談フォームへ</button>`;
+
+    const specRows = Object.entries(p.specs).map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join('');
+
+    document.getElementById('prodModalInner').innerHTML = `
+      <div class="modal-head">
+        <div>
+          <div style="font-size:11px;color:#888;font-family:'Courier New',monospace;">${p.sku}</div>
+          <div style="font-weight:600;">${p.name}</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('prodModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="modal-img">${p.img ? `<img src="${p.img}" alt="${p.name}">` : p.icon}</div>
+          <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
+            ${p.badges.map(b=>`<span class="badge-tag ${b.type}">${b.text}</span>`).join('')}
+          </div>
+        </div>
+        <div class="modal-info">
+          <h2>${p.name}</h2>
+          <div class="sku">型番：${p.sku}</div>
+          <p style="font-size:13px;color:#555;">${p.spec}。現場でそのまま使える規格品をラインナップしています。</p>
+          <table class="spec-table">${specRows}</table>
+          ${priceBox}
+          ${p.buyable ? `<div class="qty-row">数量：<input type="number" value="1" min="1"> 台</div>` : ''}
+          <div class="action-stack">${actions}</div>
+        </div>
+      </div>`;
+    document.getElementById('prodModal').classList.add('show');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+  }
+
+  // ==== CART / QUOTE ====
+  function addToBuy(sku) {
+    if (!buyCart.includes(sku)) buyCart.push(sku);
+    document.getElementById('cartCount').textContent = buyCart.length;
+    toast('カートに追加しました');
+  }
+  function addToQuote(sku) {
+    if (!quoteCart.includes(sku)) quoteCart.push(sku);
+    document.getElementById('quoteCount').textContent = quoteCart.length;
+    toast('見積カートに追加しました。まとめて一括見積が可能です。');
+  }
+  function openCart(type) {
+    const arr = type === 'quote' ? quoteCart : buyCart;
+    const title = type === 'quote' ? '見積カート' : 'ショッピングカート';
+    const submitBtn = type === 'quote'
+      ? `<button class="big-btn quote" onclick="toast('見積依頼を送信しました（デモ）。担当者より折り返しご連絡します。'); closeModal('cartModal');">この内容で一括見積依頼する</button>`
+      : `<button class="big-btn buy" onclick="toast('注文手続き画面へ（デモ）'); closeModal('cartModal');">ご注文手続きへ進む</button>`;
+    const note = type === 'quote'
+      ? '<p style="font-size:12px;color:#666;margin-top:10px;">※ 複数商品まとめて見積書をPDFで発行いたします。法人会員は会員価格でのお見積りとなります。</p>'
+      : '<p style="font-size:12px;color:#666;margin-top:10px;">※ お支払い方法：銀行振込・クレジット・請求書払い（法人会員）に対応。</p>';
+    const rows = arr.length === 0
+      ? `<tr><td colspan="3" style="text-align:center;padding:24px;color:#888;">${title}は空です</td></tr>`
+      : arr.map(sku => {
+          const p = products.find(x=>x.sku===sku);
+          const price = p.buyable
+            ? (isMember ? `¥${p.memberPrice.toLocaleString()}` : (type==='quote' ? '（要見積）' : `¥${p.listPrice.toLocaleString()}`))
+            : '要見積';
+          return `<tr>
+            <td style="padding:10px;border-bottom:1px solid #eee;">
+              <div style="font-size:11px;color:#888;">${p.sku}</div>
+              <div>${p.name}</div>
+            </td>
+            <td style="padding:10px;border-bottom:1px solid #eee;text-align:right;">${price}</td>
+            <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;"><button onclick="removeFrom('${type}','${sku}')" style="color:#c83c3c;font-size:11px;">削除</button></td>
+          </tr>`;
+        }).join('');
+    document.getElementById('cartModalInner').innerHTML = `
+      <div class="modal-head">
+        <h2 style="font-size:16px;">${title}（${arr.length}件）</h2>
+        <button class="modal-close" onclick="closeModal('cartModal')">✕</button>
+      </div>
+      <div class="modal-body" style="display:block;padding:20px;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="background:#f6f7f9;">
+            <th style="padding:8px;text-align:left;">商品</th>
+            <th style="padding:8px;text-align:right;width:130px;">価格</th>
+            <th style="padding:8px;width:60px;"></th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        ${arr.length > 0 ? `<div style="margin-top:16px;">${submitBtn}${note}</div>` : ''}
+      </div>`;
+    document.getElementById('cartModal').classList.add('show');
+  }
+  function removeFrom(type, sku) {
+    const arr = type==='quote' ? quoteCart : buyCart;
+    const i = arr.indexOf(sku);
+    if (i > -1) arr.splice(i, 1);
+    document.getElementById('cartCount').textContent = buyCart.length;
+    document.getElementById('quoteCount').textContent = quoteCart.length;
+    openCart(type);
+  }
+
+  // ==== LOGIN ====
+  function toggleLogin() {
+    if (isMember) {
+      isMember = false;
+      updateLoginUI();
+      renderProducts(products);
+      toast('ログアウトしました');
+    } else {
+      document.getElementById('loginModal').classList.add('show');
+    }
+  }
+  function doLogin() {
+    isMember = true;
+    closeModal('loginModal');
+    updateLoginUI();
+    renderProducts(products);
+    applyFilter();
+    toast('ログインしました。会員価格が表示されます。');
+  }
+  function updateLoginUI() {
+    const lbl = document.getElementById('stateLabel');
+    const lnk = document.getElementById('loginLink');
+    if (isMember) {
+      lbl.textContent = '法人会員ログイン中（ランク：シルバー）';
+      lbl.classList.add('member');
+      lnk.textContent = '▶ ログアウト';
+    } else {
+      lbl.textContent = '未ログイン（ゲスト）';
+      lbl.classList.remove('member');
+      lnk.textContent = '▶ 法人会員ログイン';
+    }
+  }
+
+  // ==== TOAST ====
+  let toastTimer;
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+  }
+
+  // ==== INIT ====
+  renderProducts(products);
+</script>
+
+</body>
+</html>
