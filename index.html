@@ -411,7 +411,7 @@
     <a href="#cat">商品カテゴリ</a>
     <a href="#usecase">用途から探す</a>
     <a href="#list">全商品</a>
-    <a href="#">特注・オーダー相談</a>
+    <a href="custom.html">特注・オーダー相談</a>
     <a href="#">お見積り依頼</a>
     <a href="#">カタログ請求</a>
     <a href="#">ご利用ガイド</a>
@@ -552,7 +552,7 @@
       <ul>
         <li><a href="#">お問い合わせ</a></li>
         <li><a href="#">お見積り依頼</a></li>
-        <li><a href="#">特注・オーダー相談</a></li>
+        <li><a href="custom.html">特注・オーダー相談</a></li>
         <li><a href="#">カタログ請求</a></li>
         <li><a href="#">よくある質問</a></li>
       </ul>
@@ -864,7 +864,7 @@
          <button class="big-btn quote" onclick="addToQuote('${p.sku}')">見積カートに追加</button>
          <button class="big-btn contact">この商品について問い合わせる</button>`
       : `<button class="big-btn quote" onclick="addToQuote('${p.sku}')">見積カートに追加</button>
-         <button class="big-btn contact">特注相談フォームへ</button>`;
+         <button class="big-btn contact" onclick="location.href='custom.html'">特注相談フォームへ</button>`;
 
     const specRows = Object.entries(p.specs).map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join('');
 

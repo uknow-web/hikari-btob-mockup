@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特注・オーダー相談 ｜ HIKARI BtoB STORE</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+    color: #1a1a1a; background: #fff; line-height: 1.7; font-size: 14px;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  /* MOCK BANNER */
+  .mock-banner {
+    background: #fff6d6; color: #6b4f00; text-align: center;
+    padding: 6px; font-size: 12px; border-bottom: 1px solid #f0e0a0;
+  }
+
+  /* TOP BAR */
+  .topbar { background: #0e2a4a; color: #cfd9e6; font-size: 12px; }
+  .topbar-inner {
+    max-width: 1200px; margin: 0 auto; padding: 8px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .topbar a { margin-left: 16px; }
+
+  /* HEADER */
+  header.main {
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky; top: 0; z-index: 100; background: #fff;
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto; padding: 18px 20px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 11px; color: #888; letter-spacing: 0.15em; }
+  .logo img { height: 38px; width: auto; }
+  .logo small { font-size: 10px; color: #888; font-weight: 400; letter-spacing: 0.15em; }
+  .search {
+    flex: 1; display: flex; max-width: 520px;
+    border: 1px solid #ccc; border-radius: 2px; overflow: hidden;
+  }
+  .search input { flex: 1; border: none; padding: 10px 14px; font-size: 13px; outline: none; }
+  .search button { background: #0e2a4a; color: #fff; padding: 0 18px; font-size: 12px; }
+  .header-actions { display: flex; gap: 14px; font-size: 12px; }
+  .header-actions a {
+    text-align: center; padding: 4px 10px; border-radius: 2px;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .icon { font-size: 18px; }
+
+  /* NAV */
+  nav.gnav { background: #f6f7f9; border-bottom: 1px solid #e5e5e5; }
+  .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; }
+  .nav-inner a {
+    padding: 12px 18px; font-size: 13px;
+    border-right: 1px solid #e5e5e5; transition: background .15s;
+  }
+  .nav-inner a:first-child { border-left: 1px solid #e5e5e5; }
+  .nav-inner a:hover { background: #fff; color: #0e2a4a; }
+  .nav-inner a.active { background: #0e2a4a; color: #fff; font-weight: 600; }
+
+  /* BREADCRUMB */
+  .crumbs {
+    max-width: 1200px; margin: 0 auto; padding: 12px 20px;
+    font-size: 12px; color: #888;
+  }
+  .crumbs a:hover { color: #0e2a4a; }
+  .crumbs span { margin: 0 6px; color: #ccc; }
+
+  /* HERO */
+  .hero {
+    background:
+      linear-gradient(135deg, rgba(14,42,74,0.88) 0%, rgba(26,70,120,0.80) 100%),
+      url('images/factory-hero.jpg') center/cover no-repeat;
+    color: #fff; padding: 72px 20px;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; }
+  .hero .label {
+    display: inline-block; background: #c9731c; color: #fff;
+    padding: 4px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+  .hero h1 { font-size: 36px; line-height: 1.45; font-weight: 700; margin-bottom: 14px; }
+  .hero p { font-size: 15px; color: #d7e0ea; max-width: 780px; }
+
+  /* SECTION */
+  section { padding: 56px 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .sec-title {
+    font-size: 22px; font-weight: 700; color: #0e2a4a;
+    border-left: 4px solid #c9731c; padding-left: 12px; margin-bottom: 6px;
+  }
+  .sec-sub { font-size: 12px; color: #777; padding-left: 16px; margin-bottom: 28px; }
+
+  /* INTRO */
+  .intro {
+    background: #f6f7f9; padding: 48px 20px;
+  }
+  .intro-inner {
+    max-width: 960px; margin: 0 auto; text-align: center;
+  }
+  .intro h2 {
+    font-size: 26px; color: #0e2a4a; line-height: 1.6; margin-bottom: 18px; font-weight: 700;
+  }
+  .intro h2 em { color: #c9731c; font-style: normal; }
+  .intro p {
+    font-size: 14px; color: #444; max-width: 760px; margin: 0 auto;
+  }
+
+  /* STRENGTH CARDS */
+  .strength-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .strength {
+    border: 1px solid #e5e5e5; padding: 24px 20px;
+    background: #fff; position: relative;
+  }
+  .strength-num {
+    font-size: 12px; color: #c9731c; font-weight: 700; letter-spacing: 0.15em;
+  }
+  .strength h3 {
+    font-size: 16px; font-weight: 700; color: #0e2a4a;
+    margin: 8px 0 10px; line-height: 1.5;
+  }
+  .strength p { font-size: 12px; color: #555; }
+
+  /* SCOPE TABLE */
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    background: #fff; border: 1px solid #e5e5e5;
+  }
+  table th, table td { padding: 14px 16px; text-align: left; border: 1px solid #e5e5e5; vertical-align: top; }
+  table th { background: #0e2a4a; color: #fff; font-weight: 600; font-size: 12px; }
+  table .cat { background: #f6f7f9; font-weight: 600; color: #0e2a4a; width: 22%; }
+  table .badges span {
+    display: inline-block; background: #c9731c; color: #fff;
+    padding: 2px 8px; font-size: 10px; border-radius: 2px; margin: 2px 4px 2px 0;
+  }
+
+  /* MATERIAL GRID */
+  .mat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .mat-card {
+    background: #fff; border: 1px solid #e5e5e5; padding: 20px;
+  }
+  .mat-card h3 {
+    font-size: 14px; font-weight: 700; color: #0e2a4a;
+    border-bottom: 1px solid #e5e5e5; padding-bottom: 8px; margin-bottom: 10px;
+  }
+  .mat-card ul { list-style: none; }
+  .mat-card li {
+    padding: 5px 0; font-size: 12px; color: #444;
+    display: flex; align-items: flex-start; gap: 6px;
+  }
+  .mat-card li::before { content: "■"; color: #c9731c; font-size: 10px; flex-shrink: 0; margin-top: 3px; }
+
+  /* STEPS */
+  .steps {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; position: relative;
+  }
+  .step {
+    background: #fff; border: 1px solid #e5e5e5; padding: 20px 14px; text-align: center;
+    position: relative;
+  }
+  .step + .step { border-left: none; }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #0e2a4a; color: #fff; font-weight: 700; font-size: 15px;
+    margin: 0 auto 10px;
+  }
+  .step h4 { font-size: 13px; color: #0e2a4a; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 11px; color: #666; line-height: 1.6; }
+  .step-time {
+    margin-top: 8px; font-size: 10px; color: #c9731c; font-weight: 600;
+  }
+
+  /* CASES */
+  .case-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .case {
+    background: #fff; border: 1px solid #e5e5e5; overflow: hidden;
+  }
+  .case-img {
+    aspect-ratio: 4/3; background: #f2f3f5; display: flex;
+    align-items: center; justify-content: center; font-size: 48px; color: #8a96a8;
+    overflow: hidden;
+  }
+  .case-img img { width: 100%; height: 100%; object-fit: cover; }
+  .case-body { padding: 14px; }
+  .case-tag {
+    display: inline-block; background: #0e2a4a; color: #fff;
+    padding: 2px 8px; font-size: 10px; margin-bottom: 8px;
+  }
+  .case h3 { font-size: 13px; font-weight: 700; color: #0e2a4a; line-height: 1.5; margin-bottom: 6px; }
+  .case dl {
+    font-size: 11px; color: #555;
+    display: grid; grid-template-columns: 72px 1fr; row-gap: 3px;
+  }
+  .case dt { color: #888; }
+
+  /* FORM */
+  .form-wrap { background: #f6f7f9; padding: 56px 20px; }
+  form.custom {
+    max-width: 880px; margin: 0 auto; background: #fff;
+    padding: 36px; border: 1px solid #e5e5e5;
+  }
+  form.custom h2 {
+    font-size: 22px; color: #0e2a4a; font-weight: 700;
+    border-left: 4px solid #c9731c; padding-left: 12px; margin-bottom: 4px;
+  }
+  form.custom .form-sub { font-size: 12px; color: #777; padding-left: 16px; margin-bottom: 24px; }
+  .field { margin-bottom: 16px; display: grid; grid-template-columns: 180px 1fr; gap: 12px; align-items: start; }
+  .field label { font-size: 13px; font-weight: 600; color: #333; padding-top: 10px; display: flex; align-items: center; gap: 6px; }
+  .field label .req {
+    background: #c83c3c; color: #fff; font-size: 10px;
+    padding: 1px 6px; border-radius: 2px; font-weight: 600;
+  }
+  .field label .opt {
+    background: #ccc; color: #555; font-size: 10px;
+    padding: 1px 6px; border-radius: 2px; font-weight: 600;
+  }
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field select,
+  .field textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid #ccc;
+    font-size: 13px; font-family: inherit; outline: none;
+    background: #fff; transition: border-color .15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: #0e2a4a; }
+  .field textarea { min-height: 120px; resize: vertical; }
+  .size-row { display: flex; gap: 8px; align-items: center; }
+  .size-row input { width: 100px; text-align: center; }
+  .size-row span { font-size: 12px; color: #888; }
+  .check-row { display: flex; gap: 16px; flex-wrap: wrap; padding-top: 10px; }
+  .check-row label { font-weight: 400; font-size: 13px; padding: 0; display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+  .file-row { padding-top: 8px; font-size: 12px; color: #666; }
+  .consent { background: #f6f7f9; padding: 14px; margin: 16px 0; border: 1px solid #e5e5e5; font-size: 12px; color: #555; }
+  .consent label { font-weight: 400; display: flex; gap: 8px; align-items: center; cursor: pointer; }
+  .submit-row { text-align: center; margin-top: 24px; }
+  .submit-row button {
+    background: #c9731c; color: #fff; padding: 14px 48px; font-size: 15px;
+    font-weight: 700; letter-spacing: 0.05em;
+  }
+  .submit-row button:hover { background: #b26216; }
+
+  /* ALT CTA */
+  .alt-cta {
+    background: #0e2a4a; color: #fff; padding: 40px 20px; text-align: center;
+  }
+  .alt-cta h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .alt-cta p { font-size: 13px; color: #cfd9e6; margin-bottom: 20px; }
+  .alt-cta a {
+    display: inline-block; background: #fff; color: #0e2a4a;
+    padding: 12px 28px; font-size: 13px; font-weight: 600; border-radius: 2px;
+  }
+  .alt-cta a:hover { background: #e8eef5; }
+
+  /* FOOTER */
+  footer {
+    background: #0e2a4a; color: #cfd9e6; padding: 40px 20px 20px; font-size: 12px;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px;
+  }
+  .footer-inner h5 { font-size: 13px; color: #fff; margin-bottom: 10px; }
+  .footer-inner ul { list-style: none; }
+  .footer-inner li { padding: 3px 0; }
+  .footer-inner li a:hover { color: #fff; }
+  .copy {
+    max-width: 1200px; margin: 24px auto 0; padding-top: 16px;
+    border-top: 1px solid #17406e; text-align: center; font-size: 11px;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: #206848; color: #fff; padding: 14px 22px;
+    border-radius: 4px; font-size: 13px; z-index: 1000;
+    transform: translateY(80px); opacity: 0; transition: all .25s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .strength-grid { grid-template-columns: repeat(2, 1fr); }
+    .mat-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .case-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .field { grid-template-columns: 1fr; }
+    .field label { padding-top: 0; }
+    .header-inner { flex-wrap: wrap; }
+    .search { order: 3; width: 100%; max-width: none; }
+  }
+  @media (max-width: 560px) {
+    .strength-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    form.custom { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mock-banner">
+  ※ これは提案用モックアップです（makeshop標準機能で実現可能な構成をHTMLで再現しています）
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>法人のお客様向け業務用什器EC ｜ 営業時間 平日9:00-17:30</div>
+    <div>
+      <a href="index.html#">▶ 法人会員ログイン</a>
+      <a href="index.html#">新規会員登録（無料）</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="main">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="images/logo-hikari.png" alt="HIKARI">
+      <small>BtoB STORE</small>
+    </a>
+    <div class="search">
+      <input type="text" placeholder="型番・商品名・用途で検索">
+      <button>検索</button>
+    </div>
+    <div class="header-actions">
+      <a href="index.html"><span class="icon">🛒</span>ストアへ戻る</a>
+    </div>
+  </div>
+</header>
+
+<!-- GNAV -->
+<nav class="gnav">
+  <div class="nav-inner">
+    <a href="index.html#cat">商品カテゴリ</a>
+    <a href="index.html#usecase">用途から探す</a>
+    <a href="index.html#list">全商品</a>
+    <a href="custom.html" class="active">特注・オーダー相談</a>
+    <a href="index.html#">お見積り依頼</a>
+    <a href="index.html#">カタログ請求</a>
+    <a href="index.html#">ご利用ガイド</a>
+    <a href="index.html#">会社情報</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="crumbs">
+  <a href="index.html">トップ</a>
+  <span>›</span>
+  特注・オーダー相談
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="label">FULL ORDER MADE</span>
+    <h1>特注・オーダー相談</h1>
+    <p>サイズ、素材、仕上げ、数量。規格品にないご要望も、<strong>1台から</strong>お気軽にご相談ください。企画 〜 設計 〜 製作 〜 納品までを一貫して対応します。</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-inner">
+    <h2>確かな技術力で、<em>現場の「もう一歩」</em>に応える。</h2>
+    <p>HIKARIは食品充填設備・医療充填設備・産業機械・制御盤などの分野で培った板金／溶接／ステンレス加工の技術力を、什器・棚・ワゴンの特注対応に活かしています。数量1台の特寸オーダーから、複数台数の受注生産まで、現場の用途に合わせて製作いたします。</p>
+  </div>
+</section>
+
+<!-- STRENGTHS -->
+<section>
+  <div class="container">
+    <h2 class="sec-title">HIKARIの特注対応の強み</h2>
+    <p class="sec-sub">Our Strengths</p>
+    <div class="strength-grid">
+      <div class="strength">
+        <div class="strength-num">STRENGTH 01</div>
+        <h3>板金・溶接・ステンレスの<br>総合加工力</h3>
+        <p>薄板〜製缶、テーパー加工まで多種多様に対応。治具活用と溶接方法の使い分けで歪みを最小化します。</p>
+      </div>
+      <div class="strength">
+        <div class="strength-num">STRENGTH 02</div>
+        <h3>企画 〜 製作まで<br>一気通貫</h3>
+        <p>企画・開発・設計・製作までトータルソリューションを提供。2次加工を削減し、コストと納期を最適化します。</p>
+      </div>
+      <div class="strength">
+        <div class="strength-num">STRENGTH 03</div>
+        <h3>提案型の<br>オーダー対応</h3>
+        <p>お客様の図面を1週間お預かりし、材料展開・材料選定・表面処理まで含めた最適仕様をご提案します。</p>
+      </div>
+      <div class="strength">
+        <div class="strength-num">STRENGTH 04</div>
+        <h3>食品・医療水準の<br>品質管理</h3>
+        <p>ミルシート・MSDS等の成分証明書を一元管理。医療分野では3段階のカラーチェックで耐久性を証明します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCOPE TABLE -->
+<section style="background:#f6f7f9;">
+  <div class="container">
+    <h2 class="sec-title">対応範囲</h2>
+    <p class="sec-sub">カテゴリ別の特注対応項目</p>
+    <table>
+      <thead>
+        <tr>
+          <th>カテゴリ</th>
+          <th>特注対応できること</th>
+          <th>主な対応項目</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cat">スチール棚</td>
+          <td>サイズ・段数・耐荷重・色の変更／追加オプション</td>
+          <td class="badges">
+            <span>特寸サイズ</span><span>段数増減</span><span>耐荷重強化</span><span>色指定</span><span>連結</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="cat">ワゴン</td>
+          <td>天板・段・キャスター・ハンドル形状のオーダー</td>
+          <td class="badges">
+            <span>天板形状</span><span>段違い</span><span>キャスター変更</span><span>ハンドル形状</span><span>静音仕様</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="cat">ステンレスワゴン</td>
+          <td>SUS304/SUS430の選択、仕上げ、衛生区画対応</td>
+          <td class="badges">
+            <span>SUS304</span><span>SUS430</span><span>#400仕上</span><span>HL仕上</span><span>導電キャスター</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="cat">ステンレス什器</td>
+          <td>作業台／シンク／ラック一体型など完全オーダー製作</td>
+          <td class="badges">
+            <span>フルオーダー</span><span>一体型什器</span><span>BG加工</span><span>脚形状</span><span>シンク一槽〜三槽</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="cat">その他（図面持込）</td>
+          <td>カバー／ダクト／ホッパー／タンク／架台 等</td>
+          <td class="badges">
+            <span>板金加工</span><span>溶接加工</span><span>テーパー加工</span><span>製缶</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section>
+  <div class="container">
+    <h2 class="sec-title">対応材質・加工・仕上げ</h2>
+    <p class="sec-sub">Materials & Finishes</p>
+    <div class="mat-grid">
+      <div class="mat-card">
+        <h3>対応材質</h3>
+        <ul>
+          <li>ステンレス（SUS304）</li>
+          <li>ステンレス（SUS430）</li>
+          <li>スチール（SPCC／SS400）</li>
+          <li>アルミ（ご相談）</li>
+        </ul>
+      </div>
+      <div class="mat-card">
+        <h3>加工</h3>
+        <ul>
+          <li>板金加工（薄板〜製缶）</li>
+          <li>溶接加工（TIG／MIG／スポット）</li>
+          <li>テーパー加工</li>
+          <li>ベンダー・レーザー加工</li>
+          <li>治具を用いた歪み対策</li>
+        </ul>
+      </div>
+      <div class="mat-card">
+        <h3>表面処理・仕上げ</h3>
+        <ul>
+          <li>#400仕上（鏡面）</li>
+          <li>HL仕上（ヘアライン）</li>
+          <li>バフ研磨</li>
+          <li>WPC処理</li>
+          <li>バイコート（医療用途）</li>
+          <li>粉体塗装／メラミン焼付塗装</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section style="background:#f6f7f9;">
+  <div class="container">
+    <h2 class="sec-title">ご相談から納品までの流れ</h2>
+    <p class="sec-sub">Workflow</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>ご相談</h4>
+        <p>下記フォーム／メール／電話からご連絡ください</p>
+        <div class="step-time">即日返信</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>ヒアリング</h4>
+        <p>用途・サイズ・素材・数量・納期を整理</p>
+        <div class="step-time">1〜3営業日</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>図面・見積</h4>
+        <p>仕様を確定し、正式見積書をご提出</p>
+        <div class="step-time">2〜5営業日</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>ご発注</h4>
+        <p>注文書／発注書の受領で製作着手</p>
+        <div class="step-time">即日</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h4>製作・検査</h4>
+        <p>自社工場にて製作、品質検査を実施</p>
+        <div class="step-time">14〜28営業日</div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <h4>納品</h4>
+        <p>指定場所への配送・検収対応</p>
+        <div class="step-time">指定日</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section>
+  <div class="container">
+    <h2 class="sec-title">特注製作事例</h2>
+    <p class="sec-sub">Case Studies（HIKARIの加工実績より）</p>
+    <div class="case-grid">
+      <div class="case">
+        <div class="case-img"><img src="images/ss-wagon.jpg" alt=""></div>
+        <div class="case-body">
+          <span class="case-tag">食品工場</span>
+          <h3>液体充填用ステンレスタンク／ワゴン一体型</h3>
+          <dl>
+            <dt>素材</dt><dd>SUS304</dd>
+            <dt>板厚</dt><dd>2.5mm</dd>
+            <dt>仕上げ</dt><dd>#400仕上</dd>
+            <dt>用途</dt><dd>液体物充填用</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-img"><img src="images/ss-wagon.jpg" alt=""></div>
+        <div class="case-body">
+          <span class="case-tag">医療</span>
+          <h3>医療用搬送スクリュー／器材ワゴン</h3>
+          <dl>
+            <dt>素材</dt><dd>SUS304</dd>
+            <dt>加工</dt><dd>テーパー加工</dd>
+            <dt>仕上げ</dt><dd>バイコート処理</dd>
+            <dt>用途</dt><dd>搬送・器材整理</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-img"><img src="images/steel-shelf.jpg" alt=""></div>
+        <div class="case-body">
+          <span class="case-tag">物流倉庫</span>
+          <h3>重量物対応スチール棚（特寸）</h3>
+          <dl>
+            <dt>素材</dt><dd>SS400／粉体塗装</dd>
+            <dt>サイズ</dt><dd>W1800×D900×H2400</dd>
+            <dt>耐荷重</dt><dd>800kg／段</dd>
+            <dt>用途</dt><dd>部品棚・保管棚</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-img"><img src="images/wagon-lineup.jpg" alt=""></div>
+        <div class="case-body">
+          <span class="case-tag">産業機械</span>
+          <h3>機械カバー／機械架台の製缶対応</h3>
+          <dl>
+            <dt>素材</dt><dd>SUS304／SPCC</dd>
+            <dt>加工</dt><dd>板金・溶接・製缶</dd>
+            <dt>仕上げ</dt><dd>#400仕上／粉体塗装</dd>
+            <dt>用途</dt><dd>粉砕機・産業機械周辺</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<div class="form-wrap">
+  <form class="custom" onsubmit="submitForm(event)">
+    <h2>特注・オーダー相談フォーム</h2>
+    <p class="form-sub">ご要望の詳細を教えてください。24時間以内に担当者よりご連絡いたします。</p>
+
+    <div class="field">
+      <label>会社名 <span class="req">必須</span></label>
+      <input type="text" required placeholder="例：株式会社〇〇製作所">
+    </div>
+    <div class="field">
+      <label>ご担当者名 <span class="req">必須</span></label>
+      <input type="text" required placeholder="例：山田 太郎">
+    </div>
+    <div class="field">
+      <label>部署 <span class="opt">任意</span></label>
+      <input type="text" placeholder="例：購買部">
+    </div>
+    <div class="field">
+      <label>メールアドレス <span class="req">必須</span></label>
+      <input type="email" required placeholder="例：yamada@example.co.jp">
+    </div>
+    <div class="field">
+      <label>電話番号 <span class="opt">任意</span></label>
+      <input type="tel" placeholder="例：03-1234-5678">
+    </div>
+
+    <div class="field">
+      <label>業種 <span class="req">必須</span></label>
+      <select required>
+        <option value="">選択してください</option>
+        <option>食品工場・セントラルキッチン</option>
+        <option>医療・クリニック・介護</option>
+        <option>物流・倉庫</option>
+        <option>飲食・ホテル</option>
+        <option>研究機関・実験室</option>
+        <option>産業機械・製造</option>
+        <option>その他</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>ご要望カテゴリ <span class="req">必須</span></label>
+      <div class="check-row">
+        <label><input type="checkbox"> スチール棚</label>
+        <label><input type="checkbox"> ワゴン</label>
+        <label><input type="checkbox"> ステンレスワゴン</label>
+        <label><input type="checkbox"> ステンレス什器</label>
+        <label><input type="checkbox"> その他（図面持込）</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>ご希望サイズ <span class="opt">任意</span></label>
+      <div class="size-row">
+        <input type="text" placeholder="幅 W"> <span>×</span>
+        <input type="text" placeholder="奥行 D"> <span>×</span>
+        <input type="text" placeholder="高さ H"> <span>mm</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>ご希望素材 <span class="opt">任意</span></label>
+      <select>
+        <option value="">選択してください</option>
+        <option>SUS304</option>
+        <option>SUS430</option>
+        <option>スチール（塗装）</option>
+        <option>決まっていない／ご相談</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>ご希望仕上げ <span class="opt">任意</span></label>
+      <select>
+        <option value="">選択してください</option>
+        <option>#400仕上（鏡面）</option>
+        <option>HL仕上（ヘアライン）</option>
+        <option>バフ研磨</option>
+        <option>WPC処理</option>
+        <option>バイコート</option>
+        <option>粉体塗装</option>
+        <option>決まっていない／ご相談</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>数量 <span class="req">必須</span></label>
+      <input type="text" required placeholder="例：1台 / 5台 / 月間10台">
+    </div>
+
+    <div class="field">
+      <label>ご希望納期 <span class="opt">任意</span></label>
+      <input type="text" placeholder="例：2ヶ月以内 / 6月末まで">
+    </div>
+
+    <div class="field">
+      <label>ご用途・ご要望詳細 <span class="req">必須</span></label>
+      <textarea required placeholder="現場の用途、設置環境、数量の内訳、重視したい点などを自由にご記入ください。図面や写真があればこの後ご添付いただけます。"></textarea>
+    </div>
+
+    <div class="field">
+      <label>図面・参考資料 <span class="opt">任意</span></label>
+      <div class="file-row">
+        <input type="file" multiple>
+        <p style="margin-top:6px;color:#888;">PDF / JPG / PNG / DWG ／ 最大20MB</p>
+      </div>
+    </div>
+
+    <div class="consent">
+      <label>
+        <input type="checkbox" required>
+        <span>当社の<a href="#" style="color:#0e2a4a;text-decoration:underline;">プライバシーポリシー</a>に同意のうえ送信します（必須）</span>
+      </label>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit">この内容で相談する</button>
+    </div>
+  </form>
+</div>
+
+<!-- ALT CTA -->
+<section class="alt-cta">
+  <h3>特注ではなく規格品をお探しの方へ</h3>
+  <p>初期公開10型番の規格品ラインナップは、在庫品から受注生産まで即時注文が可能です。</p>
+  <a href="index.html#list">全商品を見る</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="logo" style="margin-bottom:10px;"><img src="images/logo-hikari.png" alt="HIKARI" style="height:34px;filter:brightness(0) invert(1);"><small style="color:#8ea4bd;">BtoB STORE</small></div>
+      <p>日本の製造業ブランドが直接お届けする、業務用什器のBtoB ECサイトです。</p>
+    </div>
+    <div>
+      <h5>ご利用について</h5>
+      <ul>
+        <li><a href="#">ご利用ガイド</a></li>
+        <li><a href="#">送料・配送</a></li>
+        <li><a href="#">お支払い方法</a></li>
+        <li><a href="#">返品・交換</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>サポート</h5>
+      <ul>
+        <li><a href="#">お問い合わせ</a></li>
+        <li><a href="#">お見積り依頼</a></li>
+        <li><a href="custom.html">特注・オーダー相談</a></li>
+        <li><a href="#">カタログ請求</a></li>
+        <li><a href="#">よくある質問</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>会社情報</h5>
+      <ul>
+        <li><a href="#">会社概要</a></li>
+        <li><a href="#">工場・製造背景</a></li>
+        <li><a href="#">品質・保証</a></li>
+        <li><a href="#">プライバシーポリシー</a></li>
+        <li><a href="#">特定商取引法</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">© HIKARI MFG. 本サイトはmakeshopにて構築された提案モックです。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function submitForm(e) {
+    e.preventDefault();
+    const t = document.getElementById('toast');
+    t.textContent = 'お問い合わせを送信しました（デモ）。担当者より24時間以内にご連絡します。';
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 3500);
+  }
+</script>
+
+</body>
+</html>
