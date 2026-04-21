@@ -801,7 +801,170 @@ function section(slide, x, y, w, h, title, body, opts = {}) {
   });
 }
 
-// ====== 22. (参考) モック画面 ======
+// ====== 22. A案 vs B案 デザイン比較 ======
+{
+  const s = pres.addSlide({ masterName: "CONTENT" });
+  addTitle(s, "A/B", "デザイン比較 ｜ A案（makeshop）vs B案（BASE）", "Mockup Design Comparison");
+
+  // ---- A案 (makeshop) ----
+  const ax = 0.5, ay = 1.7, aw = 6.1, ah = 5.2;
+  s.addShape(pres.shapes.RECTANGLE, { x: ax, y: ay, w: aw, h: ah, fill: { color: COLOR.white }, line: { color: COLOR.border, width: 0.5 } });
+  s.addShape(pres.shapes.RECTANGLE, { x: ax, y: ay, w: aw, h: 0.55, fill: { color: COLOR.navy }, line: { type: "none" } });
+  s.addText("A 案  ｜  makeshop", { x: ax + 0.2, y: ay, w: aw - 0.4, h: 0.55, fontSize: 14, bold: true, color: COLOR.white, fontFace: FONT_HEADER, valign: "middle", margin: 0 });
+  s.addText("BtoB EC 推奨案", { x: ax + aw - 2.0, y: ay, w: 1.7, h: 0.55, fontSize: 10, color: COLOR.orange, align: "right", valign: "middle", fontFace: FONT_HEADER, bold: true, margin: 0 });
+
+  // Mini UI preview (A)
+  const apx = ax + 0.25, apy = ay + 0.75;
+  s.addShape(pres.shapes.RECTANGLE, { x: apx, y: apy, w: aw - 0.5, h: 1.3, fill: { color: COLOR.navy }, line: { type: "none" } });
+  s.addText("HIKARI  BtoB STORE", { x: apx + 0.15, y: apy + 0.1, w: 3, h: 0.3, fontSize: 11, bold: true, color: COLOR.white, fontFace: FONT_HEADER, margin: 0 });
+  s.addShape(pres.shapes.RECTANGLE, { x: apx + 3.4, y: apy + 0.1, w: 1.9, h: 0.28, fill: { color: COLOR.orange }, line: { type: "none" } });
+  s.addText("法人会員ログイン", { x: apx + 3.4, y: apy + 0.1, w: 1.9, h: 0.28, fontSize: 8, color: COLOR.white, align: "center", valign: "middle", fontFace: FONT_HEADER, margin: 0 });
+  s.addText("🗄  商品カテゴリ／用途／全商品／特注・オーダー相談", { x: apx + 0.15, y: apy + 0.5, w: aw - 0.8, h: 0.3, fontSize: 9, color: "CADCFC", fontFace: FONT_BODY, margin: 0 });
+  s.addShape(pres.shapes.RECTANGLE, { x: apx + 0.15, y: apy + 0.9, w: 1.2, h: 0.28, fill: { color: COLOR.orange }, line: { type: "none" } });
+  s.addText("見積カート(2)", { x: apx + 0.15, y: apy + 0.9, w: 1.2, h: 0.28, fontSize: 8, color: COLOR.white, align: "center", valign: "middle", fontFace: FONT_HEADER, margin: 0 });
+  s.addShape(pres.shapes.RECTANGLE, { x: apx + 1.45, y: apy + 0.9, w: 1.2, h: 0.28, fill: { color: COLOR.navyLight }, line: { type: "none" } });
+  s.addText("カート(1)", { x: apx + 1.45, y: apy + 0.9, w: 1.2, h: 0.28, fontSize: 8, color: COLOR.white, align: "center", valign: "middle", fontFace: FONT_HEADER, margin: 0 });
+
+  // Feature list A
+  const aFeatures = [
+    "カラー：ネイビー × オレンジ（BtoB堅実）",
+    "ナビゲーション：8項目（カテゴリ/用途/特注/見積 等）",
+    "絞り込み：カテゴリ × 素材 × 販売区分の3軸",
+    "価格表示：会員ログイン時のみ会員価格を表示",
+    "カート：ショッピングカート + 見積カートの2系統",
+    "特注：独立した「特注・オーダー相談」専用ページ",
+    "請求書払い・会員ランク別価格：標準対応"
+  ];
+  s.addText(aFeatures.map((t, i) => ({
+    text: t, options: { bullet: { code: "25A0" }, breakLine: i < aFeatures.length - 1, paraSpaceAfter: 3, color: COLOR.text }
+  })), { x: apx, y: apy + 1.5, w: aw - 0.5, h: 2.8, fontSize: 11, fontFace: FONT_BODY, valign: "top", margin: 0 });
+
+  // ---- B案 (BASE) ----
+  const bx = 6.8, by = 1.7, bw = 6.0, bh = 5.2;
+  s.addShape(pres.shapes.RECTANGLE, { x: bx, y: by, w: bw, h: bh, fill: { color: COLOR.white }, line: { color: COLOR.border, width: 0.5 } });
+  s.addShape(pres.shapes.RECTANGLE, { x: bx, y: by, w: bw, h: 0.55, fill: { color: "3A3A3A" }, line: { type: "none" } });
+  s.addText("B 案  ｜  BASE", { x: bx + 0.2, y: by, w: bw - 0.4, h: 0.55, fontSize: 14, bold: true, color: COLOR.white, fontFace: FONT_HEADER, valign: "middle", margin: 0 });
+  s.addText("BtoC テンプレート寄り", { x: bx + bw - 2.3, y: by, w: 2.0, h: 0.55, fontSize: 10, color: "E8C18B", align: "right", valign: "middle", fontFace: FONT_HEADER, bold: true, margin: 0 });
+
+  // Mini UI preview (B)
+  const bpx = bx + 0.25, bpy = by + 0.75;
+  s.addShape(pres.shapes.RECTANGLE, { x: bpx, y: bpy, w: bw - 0.5, h: 1.3, fill: { color: "FAFAF8" }, line: { color: "EEE9E2", width: 0.5 } });
+  s.addText("HIKARI  STORE", { x: bpx + 0.15, y: bpy + 0.1, w: 3, h: 0.3, fontSize: 11, bold: true, color: "222222", fontFace: FONT_HEADER, margin: 0 });
+  s.addText("🔍  👤  🛒", { x: bpx + bw - 1.5, y: bpy + 0.1, w: 1.2, h: 0.3, fontSize: 11, color: "222222", align: "right", fontFace: FONT_BODY, margin: 0 });
+  s.addText("ITEMS   ALL   ABOUT   CUSTOM   CONTACT", { x: bpx + 0.15, y: bpy + 0.55, w: bw - 0.8, h: 0.3, fontSize: 8, color: "222222", fontFace: FONT_HEADER, charSpacing: 2, margin: 0 });
+  s.addShape(pres.shapes.RECTANGLE, { x: bpx + 0.15, y: bpy + 0.95, w: 1.6, h: 0.25, fill: { color: "222222" }, line: { type: "none" } });
+  s.addText("ADD TO CART", { x: bpx + 0.15, y: bpy + 0.95, w: 1.6, h: 0.25, fontSize: 8, color: COLOR.white, align: "center", valign: "middle", fontFace: FONT_HEADER, margin: 0 });
+
+  // Feature list B
+  const bFeatures = [
+    "カラー：ウォームホワイト × ブラック × 金茶",
+    "ナビゲーション：5項目（ITEMS/ALL/ABOUT/CUSTOM/CONTACT）",
+    "絞り込み：カテゴリタブ1軸のみ",
+    "価格表示：常時表示（会員価格の動的切替なし）",
+    "カート：ショッピングカート1系統のみ",
+    "特注：共通のお問い合わせモーダル",
+    "請求書払い・会員ランク別価格：標準では不可"
+  ];
+  s.addText(bFeatures.map((t, i) => ({
+    text: t, options: { bullet: { code: "25A0" }, breakLine: i < bFeatures.length - 1, paraSpaceAfter: 3, color: COLOR.text }
+  })), { x: bpx, y: bpy + 1.5, w: bw - 0.5, h: 2.8, fontSize: 11, fontFace: FONT_BODY, valign: "top", margin: 0 });
+
+  // Bottom annotation
+  s.addText([
+    { text: "A案 ", options: { bold: true, color: COLOR.navy } },
+    { text: "： 法人取引の導線（会員価格・見積・請求書払い）を標準機能で再現 ", options: { color: COLOR.text } },
+    { text: "｜ ", options: { color: COLOR.mutedLight } },
+    { text: "B案 ", options: { bold: true, color: "3A3A3A" } },
+    { text: "： BtoC運用に近く、BtoB機能は回避策／外部ツール／手運用で補完が必要", options: { color: COLOR.text } }
+  ], { x: 0.5, y: 7.0, w: 12.3, h: 0.3, fontSize: 10, fontFace: FONT_BODY, italic: true, margin: 0 });
+}
+
+// ====== 23. BASE vs makeshop ランニングコスト比較 ======
+{
+  const s = pres.addSlide({ masterName: "CONTENT" });
+  addTitle(s, "COST", "BASE vs makeshop ランニングコスト比較", "5-Year Running Cost / BtoB機能対応込みの実質コスト");
+
+  // ---- 上段：基本プラン費用 ----
+  const plan1 = [
+    [{ text: "項目", options: { bold: true, fill: { color: COLOR.navy }, color: COLOR.white, fontSize: 10, fontFace: FONT_HEADER, align: "center", valign: "middle" } },
+     { text: "BASE（スタンダード）", options: { bold: true, fill: { color: COLOR.navy }, color: COLOR.white, fontSize: 10, fontFace: FONT_HEADER, align: "center", valign: "middle" } },
+     { text: "makeshop（プレミアム＋B2B）", options: { bold: true, fill: { color: COLOR.orange }, color: COLOR.white, fontSize: 10, fontFace: FONT_HEADER, align: "center", valign: "middle" } }],
+    [{ text: "初期費用", options: { fill: { color: COLOR.bg }, bold: true, fontSize: 10, fontFace: FONT_BODY, valign: "middle" } },
+     { text: "0円", options: { fontSize: 10, fontFace: FONT_BODY, align: "center", valign: "middle" } },
+     { text: "11,000円", options: { fontSize: 10, fontFace: FONT_BODY, align: "center", valign: "middle" } }],
+    [{ text: "月額（年払い）", options: { fill: { color: COLOR.bg }, bold: true, fontSize: 10, fontFace: FONT_BODY, valign: "middle" } },
+     { text: "16,580円／月", options: { fontSize: 10, fontFace: FONT_BODY, align: "center", valign: "middle" } },
+     { text: "22,000円／月（B2B込）", options: { fontSize: 10, fontFace: FONT_BODY, align: "center", valign: "middle" } }],
+    [{ text: "決済手数料", options: { fill: { color: COLOR.bg }, bold: true, fontSize: 10, fontFace: FONT_BODY, valign: "middle" } },
+     { text: "2.9%", options: { fontSize: 10, fontFace: FONT_BODY, align: "center", valign: "middle" } },
+     { text: "3.14% + 40円/件", options: { fontSize: 10, fontFace: FONT_BODY, align: "center", valign: "middle" } }],
+  ];
+  s.addTable(plan1, {
+    x: 0.5, y: 1.7, w: 6.0, colW: [1.7, 2.1, 2.2],
+    border: { pt: 0.5, color: COLOR.border }, rowH: 0.38
+  });
+
+  // ---- 右上：BtoB機能対応可否 ----
+  const feat = [
+    [{ text: "BtoB機能", options: { bold: true, fill: { color: COLOR.navy }, color: COLOR.white, fontSize: 10, fontFace: FONT_HEADER, align: "center", valign: "middle" } },
+     { text: "BASE", options: { bold: true, fill: { color: COLOR.navy }, color: COLOR.white, fontSize: 10, fontFace: FONT_HEADER, align: "center", valign: "middle" } },
+     { text: "makeshop", options: { bold: true, fill: { color: COLOR.orange }, color: COLOR.white, fontSize: 10, fontFace: FONT_HEADER, align: "center", valign: "middle" } }],
+    [{ text: "会員ランク別価格", options: { fill: { color: COLOR.bg }, bold: true, fontSize: 10, fontFace: FONT_BODY, valign: "middle" } },
+     { text: "×", options: { fontSize: 14, bold: true, color: COLOR.warn, fontFace: FONT_HEADER, align: "center", valign: "middle" } },
+     { text: "◎", options: { fontSize: 14, bold: true, color: "206848", fontFace: FONT_HEADER, align: "center", valign: "middle" } }],
+    [{ text: "請求書払い（掛売）", options: { fill: { color: COLOR.bg }, bold: true, fontSize: 10, fontFace: FONT_BODY, valign: "middle" } },
+     { text: "△ 外部連携", options: { fontSize: 10, color: COLOR.orangeDark, fontFace: FONT_BODY, align: "center", valign: "middle" } },
+     { text: "◎", options: { fontSize: 14, bold: true, color: "206848", fontFace: FONT_HEADER, align: "center", valign: "middle" } }],
+    [{ text: "見積書PDF発行", options: { fill: { color: COLOR.bg }, bold: true, fontSize: 10, fontFace: FONT_BODY, valign: "middle" } },
+     { text: "×", options: { fontSize: 14, bold: true, color: COLOR.warn, fontFace: FONT_HEADER, align: "center", valign: "middle" } },
+     { text: "◎", options: { fontSize: 14, bold: true, color: "206848", fontFace: FONT_HEADER, align: "center", valign: "middle" } }],
+  ];
+  s.addTable(feat, {
+    x: 6.8, y: 1.7, w: 6.0, colW: [3.0, 1.5, 1.5],
+    border: { pt: 0.5, color: COLOR.border }, rowH: 0.38
+  });
+
+  // ---- 中段：試算前提 ----
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 3.55, w: 12.3, h: 0.5, fill: { color: "FFF6E6" }, line: { color: "E8C18B", width: 0.5 } });
+  s.addText("前提条件： 年商3,000万円 ／ 年間1,000件受注 ／ 掛売比率30% ／ BtoB運用による追加コストを加味", {
+    x: 0.65, y: 3.55, w: 12.0, h: 0.5, fontSize: 11, color: "8A6A30", bold: true, valign: "middle", fontFace: FONT_BODY, margin: 0
+  });
+
+  // ---- 下段：5年累計コスト大比較 ----
+  // BASE side
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 4.25, w: 6.0, h: 2.7, fill: { color: "3A3A3A" }, line: { type: "none" } });
+  s.addText("BASE（5年累計 / 実質）", { x: 0.7, y: 4.4, w: 5.5, h: 0.35, fontSize: 12, bold: true, color: "E8C18B", fontFace: FONT_HEADER, margin: 0 });
+  s.addText("約 926 万円", { x: 0.7, y: 4.8, w: 5.5, h: 1.0, fontSize: 42, bold: true, color: COLOR.white, fontFace: FONT_HEADER, margin: 0 });
+  s.addText([
+    { text: "内訳： ", options: { color: "AAAAAA" } },
+    { text: "プラン費 ", options: { color: "CCCCCC" } },
+    { text: "+ 決済 ", options: { color: "CCCCCC" } },
+    { text: "+ 掛売手数料（NP等） ", options: { color: "CCCCCC" } },
+    { text: "+ 手作業工数 ", options: { color: "CCCCCC" } },
+    { text: "+ 外部ツール ", options: { color: "CCCCCC" } },
+    { text: "+ 追加開発費", options: { color: "CCCCCC" } }
+  ], { x: 0.7, y: 5.95, w: 5.6, h: 0.85, fontSize: 9, fontFace: FONT_BODY, valign: "top", margin: 0 });
+
+  // makeshop side
+  s.addShape(pres.shapes.RECTANGLE, { x: 6.8, y: 4.25, w: 6.0, h: 2.7, fill: { color: COLOR.navy }, line: { type: "none" } });
+  s.addShape(pres.shapes.RECTANGLE, { x: 6.8, y: 4.25, w: 6.0, h: 0.1, fill: { color: COLOR.orange }, line: { type: "none" } });
+  s.addText("makeshop（5年累計）", { x: 7.0, y: 4.4, w: 5.5, h: 0.35, fontSize: 12, bold: true, color: COLOR.orange, fontFace: FONT_HEADER, margin: 0 });
+  s.addText("約 604 万円", { x: 7.0, y: 4.8, w: 5.5, h: 1.0, fontSize: 42, bold: true, color: COLOR.white, fontFace: FONT_HEADER, margin: 0 });
+  s.addText([
+    { text: "内訳： ", options: { color: "AAAAAA" } },
+    { text: "プラン費（B2B含） ", options: { color: "CADCFC" } },
+    { text: "+ 決済 ", options: { color: "CADCFC" } },
+    { text: "※ BtoB機能は全て標準対応のため、追加運用コストは発生しません。", options: { color: COLOR.orange, italic: true, breakLine: true } }
+  ], { x: 7.0, y: 5.95, w: 5.6, h: 0.85, fontSize: 9, fontFace: FONT_BODY, valign: "top", margin: 0 });
+
+  // Diff banner
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 7.0, w: 12.3, h: 0.3, fill: { color: COLOR.orange }, line: { type: "none" } });
+  s.addText("→ 5年累計で makeshop が 約 322 万円 お得。さらにBtoB運用の標準化による属人化リスク低減を加味すると優位性はさらに拡大。", {
+    x: 0.5, y: 7.0, w: 12.3, h: 0.3, fontSize: 11, bold: true, color: COLOR.white, align: "center", valign: "middle", fontFace: FONT_HEADER, margin: 0
+  });
+}
+
+// ====== 24. (参考) モック画面 ======
 {
   const s = pres.addSlide({ masterName: "CONTENT" });
   addTitle(s, "", "（参考）モックアップ画面", "https://hikari-btob-mockup.vercel.app/");
