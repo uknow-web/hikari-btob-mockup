@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIKARI STORE ｜ B案：BASE構築バージョン</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: #222;
+    background: #FAFAF8;
+    line-height: 1.7;
+    font-size: 14px;
+    font-weight: 300;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  img { max-width: 100%; display: block; }
+
+  /* ==== PLAN BANNER ==== */
+  .plan-banner {
+    background: #222; color: #fff; text-align: center;
+    padding: 8px; font-size: 11px; letter-spacing: 0.15em;
+  }
+  .plan-banner b { color: #E8C18B; margin: 0 8px; }
+  .plan-banner a { text-decoration: underline; opacity: 0.8; margin-left: 12px; }
+
+  /* ==== TOP ANNOUNCE ==== */
+  .announce {
+    background: #FAFAF8; text-align: center; padding: 6px;
+    font-size: 11px; color: #888; letter-spacing: 0.1em;
+    border-bottom: 1px solid #EEE9E2;
+  }
+
+  /* ==== HEADER ==== */
+  header.main {
+    background: #FAFAF8; border-bottom: 1px solid #EEE9E2;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-inner {
+    max-width: 1240px; margin: 0 auto;
+    padding: 22px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo-wrap { display: flex; align-items: center; gap: 10px; }
+  .logo-wrap img { height: 32px; }
+  .logo-wrap small {
+    font-size: 10px; color: #999; letter-spacing: 0.25em;
+    border-left: 1px solid #CCC; padding-left: 10px;
+  }
+  .gnav-base {
+    display: flex; gap: 28px; font-size: 12px; letter-spacing: 0.12em;
+  }
+  .gnav-base a { transition: color .15s; }
+  .gnav-base a:hover { color: #888; }
+  .header-right { display: flex; align-items: center; gap: 20px; font-size: 12px; }
+  .header-right .icon-btn {
+    width: 36px; height: 36px; border: 1px solid #DDD;
+    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 15px; position: relative;
+  }
+  .icon-btn .dot {
+    position: absolute; top: -4px; right: -4px;
+    background: #222; color: #fff; font-size: 9px; font-weight: 600;
+    width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ==== HERO ==== */
+  .hero {
+    background: #EEE9E2;
+    padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 460px;
+  }
+  .hero-text {
+    padding: 80px 60px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-tag {
+    font-size: 11px; letter-spacing: 0.3em; color: #A38B66; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: 40px; line-height: 1.45; font-weight: 400;
+    color: #222; margin-bottom: 22px;
+  }
+  .hero p {
+    font-size: 13px; color: #555; margin-bottom: 32px; max-width: 440px; line-height: 2;
+  }
+  .btn-dark {
+    display: inline-block; background: #222; color: #fff;
+    padding: 14px 32px; font-size: 12px; letter-spacing: 0.2em;
+    border: 1px solid #222; transition: all .15s; width: fit-content;
+  }
+  .btn-dark:hover { background: #fff; color: #222; }
+  .hero-img {
+    background: url('images/factory-hero.jpg') center/cover no-repeat;
+  }
+
+  /* ==== NOTICE STRIP ==== */
+  .notice {
+    background: #fff; border-bottom: 1px solid #EEE9E2;
+    padding: 16px 28px; text-align: center; font-size: 12px; color: #666;
+    letter-spacing: 0.1em;
+  }
+  .notice b { color: #A38B66; margin-right: 10px; }
+
+  /* ==== SECTION ==== */
+  section { padding: 80px 28px; }
+  .container { max-width: 1240px; margin: 0 auto; }
+  .sec-heading {
+    text-align: center; margin-bottom: 48px;
+  }
+  .sec-heading .en {
+    font-size: 11px; letter-spacing: 0.4em; color: #A38B66; margin-bottom: 10px; display: block;
+  }
+  .sec-heading h2 {
+    font-size: 24px; font-weight: 400; color: #222; letter-spacing: 0.1em;
+  }
+
+  /* ==== CATEGORY ==== */
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  .cat-card {
+    background: #fff; text-align: center; padding: 40px 20px;
+    border: 1px solid #EEE9E2; transition: all .15s; cursor: pointer;
+  }
+  .cat-card:hover { border-color: #A38B66; }
+  .cat-card h3 {
+    font-size: 15px; font-weight: 400; color: #222; margin-bottom: 6px; letter-spacing: 0.1em;
+  }
+  .cat-card .en {
+    font-size: 10px; color: #A38B66; letter-spacing: 0.3em;
+  }
+
+  /* ==== PRODUCT GRID ==== */
+  .prod-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 20px;
+  }
+  .prod {
+    background: transparent; cursor: pointer;
+  }
+  .prod-img {
+    aspect-ratio: 1/1; background: #fff; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px; transition: opacity .2s;
+  }
+  .prod-img img { width: 100%; height: 100%; object-fit: contain; padding: 8%; }
+  .prod:hover .prod-img { opacity: 0.85; }
+  .prod-name { font-size: 13px; color: #222; line-height: 1.6; margin-bottom: 4px; min-height: 40px; }
+  .prod-sub { font-size: 11px; color: #999; margin-bottom: 6px; }
+  .prod-price { font-size: 15px; font-weight: 500; color: #222; letter-spacing: 0.03em; }
+  .prod-price .unit { font-size: 11px; color: #999; font-weight: 300; margin-left: 3px; }
+  .prod-price.contact { font-size: 12px; color: #A38B66; }
+  .prod-tag {
+    display: inline-block; font-size: 9px; letter-spacing: 0.2em;
+    background: #222; color: #fff; padding: 2px 8px; margin-bottom: 6px;
+  }
+  .prod-tag.sold { background: #999; }
+  .prod-tag.contact { background: #A38B66; }
+
+  /* ==== NARROW FILTER ==== */
+  .filter-simple {
+    text-align: center; margin-bottom: 30px;
+    font-size: 12px; letter-spacing: 0.1em;
+  }
+  .filter-simple a {
+    display: inline-block; padding: 6px 18px; margin: 0 2px;
+    border: 1px solid #DDD; transition: all .15s;
+  }
+  .filter-simple a.active, .filter-simple a:hover {
+    background: #222; color: #fff; border-color: #222;
+  }
+
+  /* ==== BENEFIT SECTION ==== */
+  .benefits {
+    background: #fff; padding: 60px 28px; border-top: 1px solid #EEE9E2; border-bottom: 1px solid #EEE9E2;
+  }
+  .benefit-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .benefit {
+    text-align: center;
+  }
+  .benefit .num {
+    font-size: 11px; letter-spacing: 0.3em; color: #A38B66; margin-bottom: 8px;
+  }
+  .benefit h3 {
+    font-size: 15px; font-weight: 400; color: #222; margin-bottom: 10px; letter-spacing: 0.05em;
+  }
+  .benefit p { font-size: 12px; color: #666; line-height: 1.9; }
+
+  /* ==== CUSTOM STRIP ==== */
+  .custom-strip {
+    background: #222; color: #fff; padding: 60px 28px; text-align: center;
+  }
+  .custom-strip .en {
+    font-size: 11px; letter-spacing: 0.4em; color: #E8C18B; margin-bottom: 16px;
+  }
+  .custom-strip h2 {
+    font-size: 26px; font-weight: 400; letter-spacing: 0.08em; margin-bottom: 16px;
+  }
+  .custom-strip p { font-size: 12px; color: #CCC; margin-bottom: 32px; }
+  .btn-outline-light {
+    display: inline-block; border: 1px solid #fff; color: #fff;
+    padding: 14px 36px; font-size: 12px; letter-spacing: 0.2em;
+    transition: all .15s;
+  }
+  .btn-outline-light:hover { background: #fff; color: #222; }
+
+  /* ==== FOOTER ==== */
+  footer {
+    background: #FAFAF8; padding: 40px 28px 20px;
+    border-top: 1px solid #EEE9E2; font-size: 11px; color: #888;
+  }
+  .footer-inner {
+    max-width: 1240px; margin: 0 auto;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px;
+  }
+  .footer-inner a:hover { color: #222; }
+  .footer-inner ul { list-style: none; display: flex; gap: 20px; }
+  .copy {
+    max-width: 1240px; margin: 20px auto 0; padding-top: 16px;
+    border-top: 1px solid #EEE9E2; text-align: center; font-size: 10px; letter-spacing: 0.1em;
+  }
+
+  /* ==== MODAL ==== */
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    display: none; align-items: center; justify-content: center; z-index: 500;
+    padding: 20px;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: #fff; max-width: 900px; width: 100%; max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-head {
+    padding: 20px 28px; display: flex; justify-content: space-between;
+    position: sticky; top: 0; background: #fff; z-index: 1; border-bottom: 1px solid #EEE9E2;
+  }
+  .modal-head .en { font-size: 10px; letter-spacing: 0.3em; color: #A38B66; }
+  .modal-close { font-size: 18px; color: #999; padding: 4px 10px; }
+  .modal-body { padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .modal-img { background: #FAFAF8; aspect-ratio: 1/1; overflow: hidden; }
+  .modal-img img { width: 100%; height: 100%; object-fit: contain; padding: 8%; }
+  .modal-info h2 {
+    font-size: 20px; font-weight: 400; line-height: 1.5; margin-bottom: 6px;
+  }
+  .modal-info .sku { font-family: 'Courier New', monospace; color: #999; margin-bottom: 20px; font-size: 12px; }
+  .modal-info .price {
+    font-size: 24px; font-weight: 500; color: #222; margin-bottom: 20px;
+  }
+  .modal-info .price.contact { font-size: 15px; color: #A38B66; }
+  .modal-info .desc { font-size: 12px; color: #555; margin-bottom: 24px; line-height: 2; }
+  .spec-simple {
+    font-size: 12px; color: #666; margin-bottom: 24px;
+    border-top: 1px solid #EEE9E2; padding-top: 16px;
+  }
+  .spec-simple dl { display: grid; grid-template-columns: 100px 1fr; row-gap: 6px; }
+  .spec-simple dt { color: #999; }
+  .qty { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; font-size: 12px; }
+  .qty input { width: 60px; padding: 8px; border: 1px solid #DDD; text-align: center; }
+  .big-btn-dark {
+    width: 100%; padding: 16px; background: #222; color: #fff;
+    font-size: 12px; letter-spacing: 0.2em; transition: all .15s;
+  }
+  .big-btn-dark:hover { background: #000; }
+  .big-btn-outline {
+    width: 100%; padding: 16px; background: #fff; color: #222;
+    border: 1px solid #222; font-size: 12px; letter-spacing: 0.2em; margin-top: 8px;
+  }
+  .big-btn-outline:hover { background: #222; color: #fff; }
+
+  /* ==== TOAST ==== */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: #222; color: #fff; padding: 14px 30px; font-size: 12px;
+    letter-spacing: 0.1em; z-index: 1000;
+    opacity: 0; transition: all .25s;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* ==== BtoB LIMITATION CALLOUT ==== */
+  .limit-note {
+    background: #FFF6E6; border: 1px solid #E8C18B; color: #8A6A30;
+    padding: 20px 28px; font-size: 11px; line-height: 2;
+    max-width: 1240px; margin: 0 auto 40px;
+  }
+  .limit-note b { display: block; color: #A38B66; letter-spacing: 0.15em; margin-bottom: 8px; font-size: 11px; }
+
+  /* ==== RESPONSIVE ==== */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-img { min-height: 280px; }
+    .hero-text { padding: 40px 28px; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .prod-grid { grid-template-columns: repeat(2, 1fr); }
+    .benefit-grid { grid-template-columns: 1fr; gap: 28px; }
+    .modal-body { grid-template-columns: 1fr; }
+    .gnav-base { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PLAN BANNER (比較用) -->
+<div class="plan-banner">
+  <b>【 B案 ／ BASE 構築バージョン 】</b> BtoC寄りのテンプレート構成に寄せています
+  <a href="index.html">▶ A案（makeshop）を見る</a>
+</div>
+
+<!-- ANNOUNCE -->
+<div class="announce">法人のお客様は会員登録で 5%OFF ／ 全国送料一律 ／ 3万円以上送料無料</div>
+
+<!-- HEADER -->
+<header class="main">
+  <div class="header-inner">
+    <a href="base.html" class="logo-wrap">
+      <img src="images/logo-hikari.png" alt="HIKARI">
+      <small>STORE</small>
+    </a>
+    <nav class="gnav-base">
+      <a href="#cat">ITEMS</a>
+      <a href="#list">ALL</a>
+      <a href="#custom">ABOUT</a>
+      <a href="#custom">CUSTOM</a>
+      <a href="#custom">CONTACT</a>
+    </nav>
+    <div class="header-right">
+      <a href="#" class="icon-btn" title="検索">🔍</a>
+      <a href="#" class="icon-btn" title="会員">👤</a>
+      <a href="#" class="icon-btn" title="カート" onclick="openCart(); return false;">
+        🛒
+        <span class="dot" id="cartCount">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-text">
+    <div class="hero-tag">— MADE IN JAPAN —</div>
+    <h1>Industrial quality,<br>for everyday work.</h1>
+    <p>工場・厨房・医療現場で使われてきた確かな品質を、日常の現場へ。HIKARIの什器はすべて日本の自社工場で製造しています。</p>
+    <a href="#list" class="btn-dark">SHOP ALL ITEMS</a>
+  </div>
+  <div class="hero-img"></div>
+</section>
+
+<!-- NOTICE (BASE運用を再現：お知らせ帯) -->
+<div class="notice">
+  <b>NEWS</b> 2026 / 4 新作ステンレスワゴン入荷しました
+</div>
+
+<!-- LIMITATION NOTE (B案ならではの注記) -->
+<div style="padding:40px 28px 0;">
+  <div class="limit-note">
+    <b>※ B案（BASE）の仕様上の前提</b>
+    本バージョンは BASE のテンプレートを前提としています。会員ランク別価格の自動切替／見積カート／請求書払い／取引先別単価などの BtoB 機能は標準搭載されていないため、価格はログインの有無にかかわらず常時表示、「要見積」商品は価格非表示＋お問い合わせフォーム誘導、カートは買い物カート1系統のみとしています。詳細は比較表をご参照ください。
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="cat" style="padding-top:20px;">
+  <div class="container">
+    <div class="sec-heading">
+      <span class="en">CATEGORY</span>
+      <h2>商品カテゴリ</h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterCategory('shelf')">
+        <h3>スチール棚</h3>
+        <div class="en">STEEL SHELF</div>
+      </div>
+      <div class="cat-card" onclick="filterCategory('wagon')">
+        <h3>ワゴン</h3>
+        <div class="en">WAGON</div>
+      </div>
+      <div class="cat-card" onclick="filterCategory('sswagon')">
+        <h3>ステンレスワゴン</h3>
+        <div class="en">SS WAGON</div>
+      </div>
+      <div class="cat-card" onclick="filterCategory('ssfix')">
+        <h3>ステンレス什器</h3>
+        <div class="en">SS FIXTURE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="list" style="background:#FAFAF8;padding-top:20px;">
+  <div class="container">
+    <div class="sec-heading">
+      <span class="en">ALL ITEMS</span>
+      <h2>全商品（10 items）</h2>
+    </div>
+    <div class="filter-simple">
+      <a href="#" class="active" onclick="filterCategory('all'); return false;">ALL</a>
+      <a href="#" onclick="filterCategory('shelf'); return false;">SHELF</a>
+      <a href="#" onclick="filterCategory('wagon'); return false;">WAGON</a>
+      <a href="#" onclick="filterCategory('sswagon'); return false;">SS WAGON</a>
+      <a href="#" onclick="filterCategory('ssfix'); return false;">SS FIXTURE</a>
+    </div>
+    <div class="prod-grid" id="prodGrid"></div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="benefit-grid">
+    <div class="benefit">
+      <div class="num">01</div>
+      <h3>Made in Japan</h3>
+      <p>全商品を日本の自社工場で製造。板金・溶接・ステンレス加工の技術力に裏付けされた品質。</p>
+    </div>
+    <div class="benefit">
+      <div class="num">02</div>
+      <h3>Member Discount</h3>
+      <p>会員登録（無料）で 5%OFF。法人・個人を問わずどなたでもご利用いただけます。</p>
+    </div>
+    <div class="benefit">
+      <div class="num">03</div>
+      <h3>Made to Order</h3>
+      <p>サイズ・素材・仕上げのカスタムオーダーにも対応。まずはお気軽にお問い合わせください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM CTA -->
+<section id="custom" class="custom-strip">
+  <div class="en">MADE TO ORDER</div>
+  <h2>サイズも素材も、思いのまま。</h2>
+  <p>規格品にない特別なご要望は、お問い合わせフォームよりお気軽にご相談ください。</p>
+  <a href="#" class="btn-outline-light" onclick="openContact(); return false;">CONTACT US</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo-wrap">
+      <img src="images/logo-hikari.png" alt="HIKARI">
+      <small>STORE</small>
+    </div>
+    <ul>
+      <li><a href="#">ABOUT</a></li>
+      <li><a href="#">GUIDE</a></li>
+      <li><a href="#">SHIPPING</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">CONTACT</a></li>
+      <li><a href="#">PRIVACY</a></li>
+    </ul>
+  </div>
+  <div class="copy">© HIKARI STORE — Powered by BASE（B案モック）</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="prodModal" onclick="if(event.target===this) closeModal()">
+  <div class="modal" id="modalInner"></div>
+</div>
+
+<!-- CART MODAL -->
+<div class="modal-bg" id="cartModal" onclick="if(event.target===this) closeCart()">
+  <div class="modal" id="cartInner" style="max-width:560px;"></div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal-bg" id="contactModal" onclick="if(event.target===this) closeContact()">
+  <div class="modal" style="max-width:560px;">
+    <div class="modal-head">
+      <div>
+        <div class="en">CONTACT</div>
+        <div style="font-size:16px;font-weight:400;margin-top:4px;">お問い合わせ</div>
+      </div>
+      <button class="modal-close" onclick="closeContact()">✕</button>
+    </div>
+    <div class="modal-body" style="display:block;padding:28px;">
+      <p style="font-size:12px;color:#666;margin-bottom:20px;line-height:2;">
+        サイズ変更・素材指定・大口注文など、お気軽にご相談ください。<br>
+        （B案では BtoB 用の見積カート・帳票発行機能は無いため、単一のお問い合わせフォーム運用です）
+      </p>
+      <input type="text" placeholder="お名前 / 会社名" style="width:100%;padding:12px;border:1px solid #DDD;margin-bottom:10px;font-size:13px;">
+      <input type="email" placeholder="メールアドレス" style="width:100%;padding:12px;border:1px solid #DDD;margin-bottom:10px;font-size:13px;">
+      <textarea placeholder="ご相談内容（サイズ・数量・納期などをお書きください）" style="width:100%;padding:12px;border:1px solid #DDD;margin-bottom:16px;font-size:13px;min-height:120px;"></textarea>
+      <button class="big-btn-dark" onclick="toast('お問い合わせを送信しました（デモ）'); closeContact();">SEND</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const cart = [];
+  const products = [
+    { sku: 'SS-900-L', name: '軽量スチール棚 W900', sub: '5段 / 耐荷重120kg', cat: 'shelf', img: 'images/steel-shelf.jpg', price: 18800, desc: '倉庫・物流・オフィスバックヤード向けの軽量棚。現場定番の5段タイプ。', specs: { 'SIZE': 'W900×D450×H1800mm', 'MATERIAL': 'スチール／メラミン焼付', 'CAPACITY': '120kg/段', 'SHIPPING': '即日出荷' } },
+    { sku: 'SS-1200-M', name: '中量スチール棚 W1200', sub: '5段 / 耐荷重300kg', cat: 'shelf', img: 'images/steel-shelf.jpg', price: 32800, tag: 'POPULAR', desc: 'もっとも選ばれる中量棚。工場・倉庫の現場定番。', specs: { 'SIZE': 'W1200×D600×H1800mm', 'MATERIAL': 'スチール／メラミン焼付', 'CAPACITY': '300kg/段', 'SHIPPING': '即日出荷' } },
+    { sku: 'SS-1500-H', name: '重量スチール棚 W1500', sub: '4段 / 耐荷重500kg', cat: 'shelf', img: 'images/steel-shelf.jpg', price: 68000, desc: '重量物対応。倉庫・パーツ保管向けの堅牢な4段棚。', specs: { 'SIZE': 'W1500×D750×H2100mm', 'MATERIAL': 'スチール／メラミン焼付', 'CAPACITY': '500kg/段', 'SHIPPING': '受注生産（10〜14営業日）' } },
+    { sku: 'WG-600-3', name: '汎用ワゴン 3段', sub: 'W600 / キャスター付', cat: 'wagon', img: 'images/wagon-lineup.jpg', price: 14800, desc: '万能タイプの3段ワゴン。キャスター2輪ストッパー付。', specs: { 'SIZE': 'W600×D450×H830mm', 'MATERIAL': 'スチール／粉体塗装', 'CAPACITY': '75kg', 'SHIPPING': '即日出荷' } },
+    { sku: 'WG-750-S', name: '静音ワゴン W750', sub: '3段 / 静音キャスター', cat: 'wagon', img: 'images/wagon-lineup.jpg', price: 22800, tag: 'SILENT', desc: '夜間作業や医療施設でも使える静音ウレタンキャスター搭載。', specs: { 'SIZE': 'W750×D450×H830mm', 'MATERIAL': 'スチール／粉体塗装', 'CAPACITY': '100kg', 'SHIPPING': '即日出荷' } },
+    { sku: 'SW-600-MED', name: 'ステンレス医療用ワゴン', sub: 'SUS304 / 2段', cat: 'sswagon', img: 'images/ss-wagon.jpg', price: 38000, tag: 'SUS304', desc: '医療・衛生区画向け。SUS304 #400仕上げ。', specs: { 'SIZE': 'W600×D450×H800mm', 'MATERIAL': 'SUS304 #400仕上', 'CAPACITY': '60kg', 'SHIPPING': '即日出荷' } },
+    { sku: 'SW-750-KIT', name: 'ステンレス厨房ワゴン', sub: 'SUS430 / 3段', cat: 'sswagon', img: 'images/ss-wagon.jpg', price: 34800, tag: 'SUS430', desc: 'セントラルキッチン・食品工場向け3段ワゴン。', specs: { 'SIZE': 'W750×D450×H830mm', 'MATERIAL': 'SUS430 #400仕上', 'CAPACITY': '80kg', 'SHIPPING': '即日出荷' } },
+    { sku: 'SF-WT-1200', name: 'ステンレス作業台 W1200', sub: '平天板 / 調整脚', cat: 'ssfix', img: null, price: 48000, desc: 'バイブレーション仕上の作業台。調整脚付き。', specs: { 'SIZE': 'W1200×D600×H800mm', 'MATERIAL': 'SUS430', 'CAPACITY': '150kg', 'SHIPPING': '受注生産（7〜10営業日）' } },
+    { sku: 'SF-SK-900', name: 'ステンレス一槽シンク', sub: 'W900 / バックガード付', cat: 'ssfix', img: null, price: 58000, desc: 'BG150付きの一槽シンク。業務用厨房に。', specs: { 'SIZE': 'W900×D600×H800mm', 'MATERIAL': 'SUS430 #400仕上', 'CAPACITY': '—', 'SHIPPING': '受注生産（10〜14営業日）' } },
+    { sku: 'SF-CUSTOM', name: 'ステンレス特注什器', sub: 'サイズ・用途オーダー', cat: 'ssfix', img: null, price: null, tag: 'CONTACT', desc: 'サイズ・用途に合わせて1台から製作します。お問い合わせください。', specs: { 'SIZE': 'W300〜W2400 等ご相談', 'MATERIAL': 'SUS304 / SUS430', 'CAPACITY': 'ご相談', 'SHIPPING': '14〜28営業日（目安）' } }
+  ];
+
+  function renderProducts(list) {
+    const g = document.getElementById('prodGrid');
+    g.innerHTML = list.map(p => card(p)).join('');
+  }
+
+  function card(p) {
+    const img = p.img
+      ? `<img src="${p.img}" alt="${p.name}">`
+      : `<div style="color:#CCC;font-size:11px;letter-spacing:0.2em;">NO IMAGE</div>`;
+    const tag = p.tag ? `<div class="prod-tag ${p.tag==='CONTACT'?'contact':''}">${p.tag}</div>` : '';
+    const price = p.price
+      ? `<div class="prod-price">¥${p.price.toLocaleString()}<span class="unit">(税抜)</span></div>`
+      : `<div class="prod-price contact">CONTACT FOR PRICE</div>`;
+    return `
+      <div class="prod" onclick="openDetail('${p.sku}')">
+        <div class="prod-img">${img}</div>
+        ${tag}
+        <div class="prod-sub">${p.sub}</div>
+        <div class="prod-name">${p.name}</div>
+        ${price}
+      </div>
+    `;
+  }
+
+  function filterCategory(cat) {
+    document.querySelectorAll('.filter-simple a').forEach(a => a.classList.remove('active'));
+    event && event.target && event.target.classList && event.target.classList.add('active');
+    const list = cat === 'all' ? products : products.filter(p => p.cat === cat);
+    renderProducts(list);
+    document.getElementById('list').scrollIntoView({behavior:'smooth'});
+  }
+
+  function openDetail(sku) {
+    const p = products.find(x => x.sku === sku);
+    if (!p) return;
+    const specRows = Object.entries(p.specs).map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+    const priceBlock = p.price
+      ? `<div class="price">¥${p.price.toLocaleString()} <span style="font-size:11px;color:#999;font-weight:300;">(税抜)</span></div>`
+      : `<div class="price contact">お問い合わせください</div>`;
+    const actions = p.price
+      ? `<div class="qty">QTY <input type="number" value="1" min="1"></div>
+         <button class="big-btn-dark" onclick="addToCart('${p.sku}')">ADD TO CART</button>
+         <button class="big-btn-outline" onclick="openContact()">お問い合わせ</button>`
+      : `<button class="big-btn-dark" onclick="openContact()">お問い合わせフォームへ</button>`;
+    const img = p.img
+      ? `<img src="${p.img}" alt="">`
+      : `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#CCC;letter-spacing:0.2em;font-size:11px;">NO IMAGE</div>`;
+    document.getElementById('modalInner').innerHTML = `
+      <div class="modal-head">
+        <div>
+          <div class="en">ITEM</div>
+          <div style="font-size:14px;margin-top:4px;">${p.name}</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-img">${img}</div>
+        <div class="modal-info">
+          <h2>${p.name}</h2>
+          <div class="sku">${p.sku}</div>
+          ${priceBlock}
+          <div class="desc">${p.desc}</div>
+          <div class="spec-simple"><dl>${specRows}</dl></div>
+          ${actions}
+        </div>
+      </div>
+    `;
+    document.getElementById('prodModal').classList.add('show');
+  }
+  function closeModal() { document.getElementById('prodModal').classList.remove('show'); }
+
+  function addToCart(sku) {
+    if (!cart.includes(sku)) cart.push(sku);
+    document.getElementById('cartCount').textContent = cart.length;
+    toast('ADDED TO CART');
+  }
+
+  function openCart() {
+    const rows = cart.length === 0
+      ? `<tr><td colspan="3" style="text-align:center;padding:40px;color:#999;font-size:12px;letter-spacing:0.1em;">CART IS EMPTY</td></tr>`
+      : cart.map(sku => {
+          const p = products.find(x => x.sku === sku);
+          return `<tr>
+            <td style="padding:14px 0;border-bottom:1px solid #EEE;"><div style="font-size:10px;color:#999;">${p.sku}</div>${p.name}</td>
+            <td style="padding:14px 0;border-bottom:1px solid #EEE;text-align:right;">¥${p.price.toLocaleString()}</td>
+            <td style="padding:14px 0;border-bottom:1px solid #EEE;text-align:center;width:40px;"><button onclick="removeFromCart('${sku}')" style="font-size:11px;color:#999;">✕</button></td>
+          </tr>`;
+        }).join('');
+    const total = cart.reduce((s, sku) => s + (products.find(x => x.sku === sku).price || 0), 0);
+    document.getElementById('cartInner').innerHTML = `
+      <div class="modal-head">
+        <div>
+          <div class="en">CART</div>
+          <div style="font-size:16px;font-weight:400;margin-top:4px;">${cart.length} items</div>
+        </div>
+        <button class="modal-close" onclick="closeCart()">✕</button>
+      </div>
+      <div class="modal-body" style="display:block;padding:28px;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">${rows}</table>
+        ${cart.length > 0 ? `
+          <div style="display:flex;justify-content:space-between;padding:20px 0;font-size:14px;border-bottom:1px solid #EEE;margin-bottom:20px;">
+            <span>SUBTOTAL</span><b>¥${total.toLocaleString()}</b>
+          </div>
+          <button class="big-btn-dark" onclick="toast('CHECKOUT（デモ）'); closeCart();">CHECKOUT</button>
+          <p style="font-size:10px;color:#999;text-align:center;margin-top:10px;line-height:1.8;">※ BASE決済：クレジットカード／コンビニ／銀行振込／Pay ID 等<br>※ 請求書払い・見積書PDFは標準機能なし（別途運用）</p>
+        ` : ''}
+      </div>
+    `;
+    document.getElementById('cartModal').classList.add('show');
+  }
+  function closeCart() { document.getElementById('cartModal').classList.remove('show'); }
+  function removeFromCart(sku) {
+    const i = cart.indexOf(sku); if (i > -1) cart.splice(i, 1);
+    document.getElementById('cartCount').textContent = cart.length;
+    openCart();
+  }
+
+  function openContact() {
+    closeModal();
+    document.getElementById('contactModal').classList.add('show');
+  }
+  function closeContact() { document.getElementById('contactModal').classList.remove('show'); }
+
+  let tt;
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(tt);
+    tt = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  renderProducts(products);
+</script>
+
+</body>
+</html>
